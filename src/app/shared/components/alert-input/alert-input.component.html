@@ -1,0 +1,55 @@
+<p-dialog
+  [header]="isUpdate ? 'Atualizar notificação' : 'Nova notificação'"
+  [(visible)]="display"
+  [modal]="true"
+  [closable]="true"
+  [dismissableMask]="true"
+  [style]="{ width: '600px', maxWidth: '90vw' }"
+>
+  <form [formGroup]="formGroup" class="flex flex-column gap-4">
+    <div class="flex flex-column gap-1">
+      <label class="text-gray-400">Título</label>
+      <input
+        formControlName="title"
+        type="text"
+        class="p-inputtext border border-gray-300 text-gray-400 rounded-md"
+      />
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="text-gray-400">Equipamento</label>
+      <p-select
+        [options]="equipmentList"
+        optionLabel="model"
+        optionValue="id"
+        formControlName="equipmentId"
+        class="border border-gray-300 text-gray-400"
+        placeholder="Selecione"
+      >
+      </p-select>
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="text-gray-400">Data de Alerta</label>
+      <p-datepicker formControlName="alertDate" inputStyleClass="w-full" class="border border-gray-300 text-gray-400" dateFormat="dd/mm/yy" />
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="text-gray-400">Descrição</label>
+      <textarea
+        formControlName="description"
+        rows="3"
+        class="p-inputtext border border-gray-300 text-gray-400 rounded-md"
+      ></textarea>
+    </div>
+
+    <div class="flex justify-end">
+      <button
+        pButton
+        label="Salvar"
+        class="bg-indigo-600 border-none text-white px-4 py-2 rounded-md"
+        (click)="isUpdate ? update() : create()"
+      ></button>
+    </div>
+  </form>
+</p-dialog>

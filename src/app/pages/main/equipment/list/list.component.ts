@@ -25,6 +25,7 @@ export class ListEquipmentComponent {
   constructor(
     private readonly router: Router
   ) { }
+
   public searchTerm = '';
 
   public equipments: Equipment[] = equipmentMockList;
@@ -37,5 +38,9 @@ export class ListEquipmentComponent {
 
   public async create(): Promise<void> {
     await this.router.navigate(['main/equipment/create']);
+  }
+
+  public async update(id: string): Promise<void> {
+    await this.router.navigate([`main/equipment/${id}/update`]);
   }
 }

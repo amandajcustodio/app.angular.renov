@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -6,11 +6,24 @@ import { InputText } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { EquipmentForm, MaintenanceForm } from '../../../../shared/types/interfaces/equipment-form.interface';
 import { Router } from '@angular/router';
+import { AlertInputComponent } from '../../../../shared/components/alert-input/alert-input.component';
+import { Notification } from '../../../../shared/types/interfaces/notification.interface';
+import { notificationMockList } from '../../../../shared/types/mocks/notification.mock.component';
+import { NotificationCardComponent } from '../../../../shared/components/notification-card/notification-card.component';
 
 @Component({
   selector: 'app-equipment-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ToggleSwitchModule, InputText, ButtonModule],
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    ReactiveFormsModule, 
+    ToggleSwitchModule, 
+    InputText, 
+    ButtonModule,
+    AlertInputComponent,
+    NotificationCardComponent
+  ],
   templateUrl: './create.component.html',
 })
 export class CreateEquipmentComponent {
@@ -28,9 +41,22 @@ export class CreateEquipmentComponent {
     });
   }
 
+  @ViewChild(AlertInputComponent) 
+  public modal!: AlertInputComponent;
+
+  public isUpdate: boolean = false;
+
+  public alertId: string = '';
+
+  openDialog() {
+    this.modal.open();
+  }
+
   public formGroup!: FormGroup<EquipmentForm>;
 
-  create() {
+  public notifications: Notification[] = notificationMockList;
+
+  public async create(): Promise<void> {
     try {
       const formValue = this.formGroup.getRawValue();
     } catch (error) {
@@ -38,7 +64,7 @@ export class CreateEquipmentComponent {
     }
   }
 
-  navigateToList() {
-    this.router.navigate(['main/equipment/list']);
+  public async navigateToList(): Promise<void> {
+    await this.router.navigate(['main/equipment/list']);
   }
 }
