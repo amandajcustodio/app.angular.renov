@@ -1,0 +1,47 @@
+<main class="flex flex-column justify-content-start align-items-center min-h-screen px-4 py-3">
+  <header class="w-full mb-4 flex align-items-center justify-content-center relative">
+    <i
+      class="pi pi-arrow-circle-left text-2xl cursor-pointer absolute left-0"
+      (click)="navigateToList()"
+      aria-label="Voltar"
+    ></i>
+    <h2 class="text-base font-medium">Adicionar equipamento</h2>
+  </header>
+
+  <form [formGroup]="formGroup" (ngSubmit)="create()" class="w-full flex flex-column gap-2">
+    <div class="p-3 bg-white border-round-xl shadow-1">
+      <h3 class="text-base font-medium text-color mb-3">Informações</h3>
+        <div class="flex flex-column gap-2">
+          <input pInputText placeholder="Modelo" 
+            formControlName="model" class="w-full border-round-2xl h-3rem" 
+          />
+          <input pInputText placeholder="Fabricante" 
+            formControlName="manufacturer" class="w-full border-round-2xl h-3rem" 
+          />
+          <input pInputText placeholder="Número de série" 
+            formControlName="serialNumber" class="w-full border-round-2xl h-3rem" 
+          />
+          <input type="date" pInputText placeholder="Data de instalação"
+            formControlName="createdAt" class="w-full border-round-2xl h-3rem"
+          />
+      </div>
+    </div>
+
+    <div class="flex align-items-center justify-content-between p-3 mt-3 bg-white border-round-xl shadow-1">
+      <label for="maintenanceAlert" class="font-medium">Alerta de Manutenção</label>
+      <p-toggleswitch id="maintenanceAlert" formControlName="maintenanceAlert" />
+    </div>
+
+    <div class="flex flex-column gap-2 mt-3" *ngIf="formGroup.get('maintenanceAlert')?.value">
+      
+    </div>
+
+    <button
+      pButton
+      type="submit"
+      label="Adicionar"
+      class="w-full mt-3 bg-indigo-600 border-none text-white border-round-2xl h-3rem"
+    ></button>
+  </form>
+</main>
+
