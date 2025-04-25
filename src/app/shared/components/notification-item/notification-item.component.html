@@ -1,0 +1,14 @@
+<div class="bg-white p-3 flex justify-content-between align-items-center border-round-2xl shadow-3 mb-3">
+  <div class="flex flex-column">
+    <span class="font-bold">{{ notification.title }}</span>
+    <span class="text-sm text-gray-500">{{ notification.description }}</span>
+    <a class="text-indigo-600 text-sm mt-2">{{ notification.equipment?.model }}</a>
+  </div>
+  <div class="flex flex-column align-items-end">
+    <button pButton class="bg-indigo-600 border-circle border-0 p-2" [ngClass]="{'bg-gray-300': notification.alertDate < today}">
+      <i class="pi pi-bell text-white"></i>
+    </button>
+    <span class="text-sm text-gray-400 mt-2">{{ notification.alertDate | date: 'dd/MM' }}</span>
+  </div>
+</div>
+

@@ -1,6 +1,6 @@
 <div class="fixed bottom-0 max-h-4rem left-0 right-0 mb-3 mx-2 p-2 flex justify-content-around align-items-center bg-white border-round-2xl shadow-4" style="height: 70px;">
   <button pButton (click)="navigateTo('/main/equipment/list')" class="flex border-0 bg-white flex-column align-items-center text-color shadow-none">
-    <i class="pi pi-home text-xl"></i>
+    <i class="pi pi-home text-xl" [ngClass]="{'text-indigo-600': isActive('/equipment/list'), 'text-color': !isActive('/equipment/list')}"></i>
   </button>
 
   <button pButton (click)="navigateTo('/main/equipment/create')" 
@@ -10,6 +10,6 @@
   </button>
 
   <button pButton (click)="navigateTo('/main/profile')" class="flex flex-column align-items-center text-color shadow-none border-0 bg-white">
-    <i class="pi pi-user text-xl"></i>
+    <i class="pi pi-user text-xl" [ngClass]="{'text-indigo-600': isActive('/profile'), 'text-color': !isActive('/profile')}"></i>
   </button>
 </div>

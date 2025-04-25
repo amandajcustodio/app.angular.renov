@@ -1,0 +1,16 @@
+<div class="p-4">
+  <header class="flex justify-content-between align-items-center mb-4">
+    <i class="pi pi-cart-plus text-xl"></i>
+    <h1 class="text-lg font-semibold text-center">Renov</h1>
+    <i class="pi pi-bell text-xl text-indigo-600"></i>
+  </header>
+
+  <div class="flex justify-between">
+    <h2 class="text-2xl font-bold mb-4 text-indigo-900">Notificações</h2>
+  </div>
+  
+
+  <div *ngFor="let notification of notifications">
+    <app-notification-item [notification]="notification"></app-notification-item>
+  </div>
+</div>

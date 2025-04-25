@@ -30,6 +30,14 @@ export const routes: Routes = [
           fullscreen: true,
         },
       },
+      {
+        path: 'notifications/list',
+        loadComponent: () => import('./pages/main/notifications/notifications.component').then(m => m.NotificationsComponent),
+        data: {
+          title: 'Visulizar notificações',
+          fullscreen: true,
+        },
+      },
     ]
   },
   { path: '', redirectTo:'login', pathMatch: 'full' },
