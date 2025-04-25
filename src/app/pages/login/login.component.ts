@@ -7,6 +7,7 @@ import { DividerModule } from 'primeng/divider';
 import { InputIcon } from 'primeng/inputicon';
 import { IconField } from 'primeng/iconfield';
 import { PasswordModule } from 'primeng/password';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -24,21 +25,25 @@ import { PasswordModule } from 'primeng/password';
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  loginForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly router: Router
+  ) {
+    this.formGroup = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', [Validators.required, Validators.email]],
     });
   }
+  
+  public formGroup: FormGroup;
 
-  login() {
-    if (this.loginForm.valid) {
-      const { name, email } = this.loginForm.value;
+  public async login(): Promise<void> {
+    if (this.formGroup.valid) {
+      const { name, email } = this.formGroup.value;
       console.log('Login com:', name, email);
+      this.router.navigate(['/main/equipment/list']);
     } else {
-      this.loginForm.markAllAsTouched();
+      this.formGroup.markAllAsTouched();
     }
   }
 

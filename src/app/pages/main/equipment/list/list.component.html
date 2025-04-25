@@ -12,34 +12,33 @@
     </p-iconfield>
   </section>
 
-  @if(filteredList.length === 0) {
-    <div class="text-lg border-dashed border-2 border-indigo-600 text-center text-indigo-600 border-round-2xl p-3">
-      <button (click)="create()" class="w-full text-indigo-600 font-medium bg-transparent border-none">
-        Adicionar equipamento
-      </button>
-    </div>
-  } @else {
-    <div *ngFor="let equip of filteredList" class="flex flex-column gap-2">
-      <div class="flex flex-column items-center bg-white p-4 border-round-xl shadow-1 mb-4 gap-3">
-        <div class="flex justify-content-between align-items-center border-bottom-1 pb-3" style="border-bottom-style: dashed;">
-          <div class="flex flex-column justify-content-center">
-            <h2 class="text-lg font-semibold text-gray-800">{{ equip.model }}</h2>
-            <p class="text-sm text-gray-600">{{ equip.manufacturer }}</p>
-          </div>
-          
-          <div class="flex gap-2">
-            <i class="pi pi-pencil text-lg text-gray-400 font-bold cursor-pointer"></i>
-            <i class="pi pi-trash text-lg text-red-300 font-bold cursor-pointer"></i>
-          </div>
-          
+  <div *ngFor="let equip of filteredList" class="flex flex-column gap-2">
+    <div class="flex flex-column items-center bg-white p-4 border-round-xl shadow-1 mb-4 gap-3">
+      <div class="flex justify-content-between align-items-center border-bottom-1 pb-3"
+        style="border-bottom-style: dashed;">
+        <div class="flex flex-column justify-content-center">
+          <h2 class="text-lg font-semibold text-gray-800">{{ equip.model }}</h2>
+          <p class="text-sm text-gray-600">{{ equip.manufacturer }}</p>
         </div>
-        <div class="flex justify-content-between">
-          <p [ngClass]="equip.isActive ? 'text-green-600' : 'text-gray-500'" class="text-sm font-medium">
-            • {{ equip.isActive ? 'Conectado' : 'Desconectado' }}
-          </p>
-          <p class="text-xs text-gray-400 mt-1">{{ equip.model }}</p>
+
+        <div class="flex gap-2">
+          <i class="pi pi-pencil text-lg text-gray-400 font-bold cursor-pointer"></i>
+          <i class="pi pi-trash text-lg text-red-300 font-bold cursor-pointer"></i>
         </div>
+
+      </div>
+      <div class="flex justify-content-between">
+        <p [ngClass]="equip.isActive ? 'text-green-600' : 'text-gray-500'" class="text-sm font-medium">
+          • {{ equip.isActive ? 'Conectado' : 'Desconectado' }}
+        </p>
+        <p class="text-xs text-gray-400 mt-1">{{ equip.model }}</p>
       </div>
     </div>
-  }
+  </div>
+  
+  <div class="text-lg border-dashed border-2 border-indigo-600 text-center text-indigo-600 border-round-2xl p-3">
+    <button (click)="create()" class="w-full text-indigo-600 font-medium bg-transparent border-none">
+      Adicionar equipamento
+    </button>
+  </div>
 </main>

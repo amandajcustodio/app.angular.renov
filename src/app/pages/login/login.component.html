@@ -3,7 +3,7 @@
     <h1 class="text-4xl font-medium logo-font">Renov</h1>
   </header>
 
-  <form [formGroup]="loginForm" (ngSubmit)="login()" class="w-full max-w-20rem flex flex-column gap-3" aria-label="Formulário de login">
+  <form [formGroup]="formGroup" (ngSubmit)="login()" class="w-full max-w-20rem flex flex-column gap-3" aria-label="Formulário de login">
     <p-iconfield>
       <p-inputicon styleClass="pi pi-user" />
       <input
@@ -16,11 +16,11 @@
       />
     </p-iconfield>
     <small
-      *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
+      *ngIf="formGroup.get('email')?.touched && formGroup.get('email')?.invalid"
       class="text-red-500"
       aria-live="polite"
     >
-      {{ loginForm.get('email')?.errors?.['required'] ? 'É obrigatório enviar um email válido' : 'Email inválido' }}
+      {{ formGroup.get('email')?.errors?.['required'] ? 'É obrigatório enviar um email válido' : 'Email inválido' }}
     </small>
 
     <div
@@ -40,7 +40,7 @@
       ></p-password>
     </div>
     <small
-      *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
+      *ngIf="formGroup.get('password')?.touched && formGroup.get('password')?.invalid"
       class="text-red-500"
       aria-live="polite"
     >
