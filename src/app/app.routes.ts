@@ -31,6 +31,14 @@ export const routes: Routes = [
         },
       },
       {
+        path: 'equipment/update/:id',
+        loadComponent: () => import('./pages/main/equipment/create/create.component').then(m => m.CreateEquipmentComponent),
+        data: {
+          title: 'Atualizar equipamento',
+          fullscreen: true,
+        },
+      },
+      {
         path: 'notifications/list',
         loadComponent: () => import('./pages/main/notifications/notifications.component').then(m => m.NotificationsComponent),
         data: {

@@ -5,7 +5,7 @@
       (click)="navigateToList()"
       aria-label="Voltar"
     ></i>
-    <h2 class="text-base font-medium">Adicionar equipamento</h2>
+    <h2 class="text-base font-medium"> {{ isUpdate ? 'Editar equipamento' : 'Adicionar equipamento' }}</h2>
   </header>
 
   <form [formGroup]="formGroup" (ngSubmit)="create()" class="w-full flex flex-column gap-2">
@@ -28,11 +28,11 @@
     </div>
 
     <div class="flex align-items-center justify-content-between p-3 mt-3 bg-white border-round-xl shadow-1">
-      <label for="maintenanceAlert" class="font-medium">Alerta de Manutenção</label>
-      <p-toggleswitch id="maintenanceAlert" formControlName="maintenanceAlert" />
+      <label for="notificationAlert" class="font-medium">Alerta de Manutenção</label>
+      <p-toggleswitch id="notificationAlert" formControlName="notificationAlert" />
     </div>
 
-    <div class="flex flex-column gap-2 mt-3" *ngIf="formGroup.get('maintenanceAlert')?.value">
+    <div class="flex flex-column gap-2 mt-3" *ngIf="formGroup.get('notificationAlert')?.value">
       <div class="text-lg border-dashed border-2 border-indigo-600 text-center text-indigo-600 border-round-2xl p-3">
         <button (click)="openDialog()" class="w-full text-indigo-600 font-medium bg-transparent border-none">
           Criar alerta
@@ -49,10 +49,10 @@
     <button
       pButton
       type="submit"
-      label="Adicionar"
+      [label]="isUpdate ? 'Editar equipamento' : 'Adicionar equipamento'"
       class="w-full mt-3 bg-indigo-600 border-none text-white border-round-2xl h-3rem"
     ></button>
   </form>
 </main>
 
-<app-alert-input #modal [alertId]="isUpdate ? alertId : ''"></app-alert-input>
+<app-alert-input #modal [alertId]="isUpdate ? alertId : ''" [showEquipment]="false"></app-alert-input>

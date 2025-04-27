@@ -36,13 +36,12 @@
         [toggleMask]="true"
         inputStyleClass="w-full border-0 border-round-2xl h-2rem shadow-none"
         styleClass="w-full"
-        autocomplete="current-password"
+        [feedback]="false"
       ></p-password>
     </div>
     <small
       *ngIf="formGroup.get('password')?.touched && formGroup.get('password')?.invalid"
       class="text-red-500"
-      aria-live="polite"
     >
       É obrigatório informar uma senha
     </small>

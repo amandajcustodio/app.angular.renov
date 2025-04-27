@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NotificationItemComponent } from '../../../shared/components/notification-item/notification-item.component';
 import { NgFor } from '@angular/common';
 import { Notification } from '../../../shared/types/interfaces/notification.interface';
@@ -11,5 +11,8 @@ import { notificationMockList } from '../../../shared/types/mocks/notification.m
   templateUrl: './notifications.component.html'
 })
 export class NotificationsComponent {
+  @Input()
+  public showEquipment: boolean = true;
+
   public notifications: Notification[] = notificationMockList;
 }

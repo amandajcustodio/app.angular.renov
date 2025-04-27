@@ -5,13 +5,6 @@ export interface Equipment {
   manufacturer: string;
   serialNumber: string;
   createdAt: Date;
-  maintenanceAlert: boolean;
-  maintenanceIds?: string[]
-  maintenance?: Maintenance[];
-}
-
-export interface Maintenance {
-  title: string;
-  date: Date;
-  description?: string;
+  notificationAlert: boolean;
+  notificationIds?: string[]
 }

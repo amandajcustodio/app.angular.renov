@@ -1,10 +1,12 @@
 import { Equipment } from "./equipment.interface";
 
 export interface Notification {
-  title: string;
   id: string;
+  title: string;
   equipmentId: string;
   alertDate: Date;
+  maxAlertDate?: Date;
+  constance?: number;
   description?: string;
   equipment?: Equipment;
 }

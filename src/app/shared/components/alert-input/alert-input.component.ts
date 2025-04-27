@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Equipment } from '../../types/interfaces/equipment.interface';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NotificationForm } from '../../types/interfaces/notification-form.interface';
@@ -8,6 +8,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
+import { Notification } from '../../types/interfaces/notification.interface';
+import { equipmentMockList } from '../../types/mocks/equipment.mock.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-alert-input',
@@ -20,22 +23,22 @@ import { DatePickerModule } from 'primeng/datepicker';
     SelectModule, 
     DialogModule, 
     ButtonModule,
-    DatePickerModule
+    DatePickerModule,
+    InputNumberModule
   ],
   templateUrl: './alert-input.component.html',
 })
-export class AlertInputComponent {
+export class AlertInputComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     this.formGroup = this.formBuilder.group<NotificationForm>({
       title: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       equipmentId: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       alertDate: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
+      maxAlertDate: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
+      constance: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
       description: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     });
   }
-
-  @Input() 
-  public equipmentList: Equipment[] = [];
 
   @Input() 
   public notification?: Notification;
@@ -44,11 +47,21 @@ export class AlertInputComponent {
   public isUpdate: boolean = false;
 
   @Input()
-  alertId: string = '';
+  public showEquipment: boolean = true;
+
+  @Input()
+  public alertId: string = '';
+
+  public equipmentList: Equipment[] = [];
 
   public formGroup!: FormGroup<NotificationForm>;
 
   public display: boolean = false;
+
+  public ngOnInit(): void {
+    if (this.showEquipment)
+      this.loadEquipments();
+  }
 
   public open(): void {
     this.display = true;
@@ -58,7 +71,7 @@ export class AlertInputComponent {
     this.display = false;
   }
 
-  create(): void {
+  public create(): void {
     try {
       
     } catch (error) {
@@ -66,11 +79,15 @@ export class AlertInputComponent {
     }
   }
 
-  update(): void {
+  public update(): void {
     try {
       
     } catch (error) {
       
     }
+  }
+
+  private loadEquipments(): void {
+    this.equipmentList = equipmentMockList.filter(eq => eq.isActive);
   }
 }

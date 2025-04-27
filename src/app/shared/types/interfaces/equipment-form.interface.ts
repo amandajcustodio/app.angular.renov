@@ -1,16 +1,11 @@
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
+import { NotificationForm } from "./notification-form.interface";
 
 export interface EquipmentForm {
   model: FormControl<string>;
   manufacturer: FormControl<string>;
   serialNumber: FormControl<string>;
   createdAt: FormControl<Date | null>;
-  maintenanceAlert: FormControl<boolean>;
-  maintenance: FormArray<FormGroup<MaintenanceForm>>;
-}
-
-export interface MaintenanceForm {
-  title: FormControl<string>
-  date: FormControl<Date>;
-  description: FormControl<string | null>;
+  notificationAlert: FormControl<boolean>;
+  notification: FormArray<FormGroup<NotificationForm>>;
 }

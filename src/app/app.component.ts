@@ -3,6 +3,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { filter, Subscription } from 'rxjs';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,12 @@ import { filter, Subscription } from 'rxjs';
   imports: [
     CommonModule,
     RouterOutlet,
-    MenuComponent
+    MenuComponent,
+    HeaderComponent
   ],
   template: `
+    <app-header *ngIf="showHeader"></app-header>
+
     <div class="mb-8">
       <router-outlet></router-outlet>
     </div>
@@ -22,11 +26,11 @@ import { filter, Subscription } from 'rxjs';
 })
 export class AppComponent {
   constructor(private router: Router) {
-    this.updateMenuVisibility();
+    this.updateVisibility();
     this.routerSubscription = router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.updateMenuVisibility();
+        this.updateVisibility();
     });
   }
 
@@ -34,10 +38,15 @@ export class AppComponent {
 
   public showMenu: boolean = true;
 
+  public showHeader: boolean = false;
+
   private readonly routerSubscription?: Subscription;
 
-  private updateMenuVisibility(): void {
+  private updateVisibility(): void {
+    const headerRoutes = ['equipment/list', 'notifications/list'];
     const excludedRoutes = ['login', 'equipment/create'];
+    
     this.showMenu = !excludedRoutes.some(route => this.router.url.includes(route));
+    this.showHeader = headerRoutes.some(route => this.router.url.includes(route));
   }
 }

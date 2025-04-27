@@ -41,6 +41,6 @@ export class ListEquipmentComponent {
   }
 
   public async update(id: string): Promise<void> {
-    await this.router.navigate([`main/equipment/${id}/update`]);
+    await this.router.navigate([`main/equipment/update/${id}`], { queryParams: { isUpdate: true } });
   }
 }

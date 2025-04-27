@@ -3,13 +3,15 @@
     <i class="pi pi-home text-xl" [ngClass]="{'text-indigo-600': isActive('/equipment/list'), 'text-color': !isActive('/equipment/list')}"></i>
   </button>
 
-  <button pButton (click)="navigateTo('/main/equipment/create')" 
+  <button pButton (click)="openDialog()" 
     class="flex justify-content-center align-items-center border-0 border-circle bg-indigo-600 text-white shadow-none" 
     style="width: 75px; height: 75px; box-shadow: none;">
     <i class="pi pi-plus text-2xl"></i>
   </button>
 
-  <button pButton (click)="navigateTo('/main/profile')" class="flex flex-column align-items-center text-color shadow-none border-0 bg-white">
-    <i class="pi pi-user text-xl" [ngClass]="{'text-indigo-600': isActive('/profile'), 'text-color': !isActive('/profile')}"></i>
+  <button pButton (click)="navigateTo('/main/notifications/list')" class="flex flex-column align-items-center text-color shadow-none border-0 bg-white">
+    <i class="pi pi-bell text-xl" [ngClass]="{'text-indigo-600': isActive('/notifications'), 'text-color': !isActive('/notifications')}"></i>
   </button>
 </div>
+
+<app-alert-input #modal></app-alert-input>

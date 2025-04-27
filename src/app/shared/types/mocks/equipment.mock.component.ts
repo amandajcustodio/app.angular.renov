@@ -1,6 +1,4 @@
 import { Equipment } from "../interfaces/equipment.interface";
-import { maintenanceMockList } from "./maintenance.mock.component";
-
 
 export const equipmentMockList: Equipment[] = [
   {
@@ -10,7 +8,7 @@ export const equipmentMockList: Equipment[] = [
     manufacturer: 'RenovTech',
     serialNumber: 'A1B2C3',
     createdAt: new Date('2024-01-15'),
-    maintenanceAlert: false,
+    notificationAlert: false,
   },
   {
     id: '2',
@@ -19,8 +17,8 @@ export const equipmentMockList: Equipment[] = [
     manufacturer: 'GreenPower',
     serialNumber: 'D4E5F6',
     createdAt: new Date('2023-11-22'),
-    maintenanceAlert: true,
-    maintenance: maintenanceMockList,
+    notificationAlert: true,
+    notificationIds: ['2', '1']
   },
   {
     id: '3',
@@ -29,7 +27,7 @@ export const equipmentMockList: Equipment[] = [
     manufacturer: 'RenovTech',
     serialNumber: 'G7H8I9',
     createdAt: new Date('2024-03-08'),
-    maintenanceAlert: false,
+    notificationAlert: false,
   },
   {
     id: '4',
@@ -38,8 +36,8 @@ export const equipmentMockList: Equipment[] = [
     manufacturer: 'EcoEnergy',
     serialNumber: 'J1K2L3',
     createdAt: new Date('2023-12-01'),
-    maintenanceAlert: true,
-    maintenance: maintenanceMockList,
+    notificationAlert: true,
+    notificationIds: ['3', '1']
   },
   {
     id: '5',
@@ -48,7 +46,7 @@ export const equipmentMockList: Equipment[] = [
     manufacturer: 'GreenPower',
     serialNumber: 'M4N5O6',
     createdAt: new Date('2024-02-20'),
-    maintenanceAlert: false,
+    notificationAlert: false,
   },
   {
     id: '6',
@@ -57,7 +55,7 @@ export const equipmentMockList: Equipment[] = [
     manufacturer: 'EcoEnergy',
     serialNumber: 'P7Q8R9',
     createdAt: new Date('2024-04-05'),
-    maintenanceAlert: false,
+    notificationAlert: false,
   },
   {
     id: '7',
@@ -66,8 +64,8 @@ export const equipmentMockList: Equipment[] = [
     manufacturer: 'RenovTech',
     serialNumber: 'S1T2U3',
     createdAt: new Date('2023-10-12'),
-    maintenanceAlert: true,
-    maintenance: maintenanceMockList,
+    notificationAlert: true,
+    notificationIds: ['2', '3']
   },
   {
     id: '8',
@@ -76,6 +74,6 @@ export const equipmentMockList: Equipment[] = [
     manufacturer: 'GreenPower',
     serialNumber: 'V4W5X6',
     createdAt: new Date('2024-01-10'),
-    maintenanceAlert: false,
+    notificationAlert: false,
   },
 ];

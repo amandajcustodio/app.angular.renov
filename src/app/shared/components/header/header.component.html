@@ -1,0 +1,5 @@
+<header class="flex justify-content-between align-items-center mb-4 mt-4 px-2">
+  <i class="pi pi-cart-plus text-xl" [ngClass]="{'text-indigo-600': isActive('/cart'), 'text-color': !isActive('/cart')}"></i>
+  <h1 class="text-lg font-semibold text-center">Renov</h1>
+  <i class="pi pi-user text-xl" [ngClass]="{'text-indigo-600': isActive('/profile'), 'text-color': !isActive('/profile')}"></i>
+</header>

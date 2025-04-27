@@ -1,10 +1,4 @@
 <main class="p-4">
-  <header class="flex justify-content-between align-items-center mb-4">
-    <i class="pi pi-cart-plus text-xl"></i>
-    <h1 class="text-lg font-semibold text-center">Renov</h1>
-    <i class="pi pi-bell text-xl"></i>
-  </header>
-
   <section class="mb-4">
     <p-iconfield class="w-full">
       <input pInputText type="text" class="w-full border-round-2xl h-3rem" placeholder="Procurar equipamentos" />
@@ -22,7 +16,7 @@
         </div>
 
         <div class="flex gap-2">
-          <i class="pi pi-pencil text-lg text-gray-400 font-bold cursor-pointer"></i>
+          <i class="pi pi-pencil text-lg text-gray-400 font-bold cursor-pointer" (click)="update(equip.id)"></i>
           <i class="pi pi-trash text-lg text-red-300 font-bold cursor-pointer"></i>
         </div>
 
