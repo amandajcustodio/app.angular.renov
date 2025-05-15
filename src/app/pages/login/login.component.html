@@ -3,7 +3,7 @@
     <h1 class="text-4xl font-medium logo-font">Renov</h1>
   </header>
 
-  <form [formGroup]="formGroup" (ngSubmit)="login()" class="w-full max-w-20rem flex flex-column gap-3" aria-label="Formulário de login">
+  <form [formGroup]="formGroup" (ngSubmit)="login()" class="w-full max-w-20rem flex flex-column gap-3 text-center" aria-label="Formulário de login">
     <p-iconfield>
       <p-inputicon styleClass="pi pi-user" />
       <input
@@ -49,9 +49,10 @@
     <button
       pButton
       type="submit"
-      label="Adicionar"
+      label="Entrar"
       class="w-full mt-2 bg-indigo-600 border-none text-white border-round-2xl h-3rem"
     ></button>
+    <small (click)="navigateToResgister()">Não tem uma conta? <span class="text-blue-500 cursor-pointer">Cadastre-se</span></small>
   </form>
 
   <p-divider class="w-full max-w-20rem my-5" type="solid">

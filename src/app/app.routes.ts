@@ -10,6 +10,14 @@ export const routes: Routes = [
     },
   },
   {
+    path: 'register',
+    loadComponent: () => import('./pages/register/register.component').then(m => m.RegisterComponent),
+    data: {
+      title: 'Cadastre-se',
+      fullscreen: true,
+    },
+  },
+  {
     path: 'main',
     loadComponent: () => import('./pages/main/main.component').then(m => m.MainComponent),
     children: [

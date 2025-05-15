@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
@@ -8,6 +8,7 @@ import { InputIcon } from 'primeng/inputicon';
 import { IconField } from 'primeng/iconfield';
 import { PasswordModule } from 'primeng/password';
 import { Router } from '@angular/router';
+import { LoginForm } from '../../shared/types/interfaces/login-form.interface';
 
 @Component({
   selector: 'app-login',
@@ -29,29 +30,33 @@ export class LoginComponent {
     private readonly formBuilder: FormBuilder,
     private readonly router: Router
   ) {
-    this.formGroup = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', [Validators.required, Validators.email]],
+    this.formGroup = this.formBuilder.group<LoginForm>({
+      email: new FormControl('', { nonNullable: true, validators: [ Validators.required, Validators.email ]}),
+      password: new FormControl('', { nonNullable: true, validators: [ Validators.required ]})
     });
   }
   
-  public formGroup: FormGroup;
+  public formGroup: FormGroup<LoginForm>;
 
   public async login(): Promise<void> {
     if (this.formGroup.valid) {
-      const { name, email } = this.formGroup.value;
-      console.log('Login com:', name, email);
+      const { password, email } = this.formGroup.value;
+      console.log('Login com:', password, email);
       this.router.navigate(['/main/equipment/list']);
     } else {
       this.formGroup.markAllAsTouched();
     }
   }
 
-  loginWithGoogle() {
+  public loginWithGoogle(): void {
     console.log('Entrar com Google');
   }
 
-  loginWithApple() {
+  public loginWithApple(): void {
     console.log('Entrar com Apple');
+  }
+
+  public navigateToResgister(): void {
+    this.router.navigate(['register']);
   }
 }

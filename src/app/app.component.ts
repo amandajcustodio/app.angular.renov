@@ -44,7 +44,7 @@ export class AppComponent {
 
   private updateVisibility(): void {
     const headerRoutes = ['equipment/list', 'notifications/list'];
-    const excludedRoutes = ['login', 'equipment/create'];
+    const excludedRoutes = ['login', 'equipment/create', 'register'];
     
     this.showMenu = !excludedRoutes.some(route => this.router.url.includes(route));
     this.showHeader = headerRoutes.some(route => this.router.url.includes(route));

@@ -45,4 +45,13 @@ html {
 
 .p-datepicker {
   display: flex !important;
+
+  .p-inputtext {
+    padding-inline: 40px !important;
+  }
+}
+
+.p-datepicker-input-icon-container {
+  inset-inline-end: auto !important;
+  inset-inline-start: 10px;
 }

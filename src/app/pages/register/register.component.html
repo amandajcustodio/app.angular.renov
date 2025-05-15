@@ -1,0 +1,140 @@
+<main class="flex flex-column justify-content-center align-items-center min-h-screen px-4 py-6">
+  <header class="mb-5">
+    <h1 class="text-4xl font-medium logo-font">Renov</h1>
+  </header>
+
+  <form [formGroup]="formGroup" (ngSubmit)="register()" class="w-full max-w-20rem flex flex-column gap-3 text-center" aria-label="Formulário de login">
+    <p-iconfield>
+      <p-inputicon styleClass="pi pi-user" />
+      <input
+        type="text"
+        pInputText
+        class="w-full border-round-2xl h-3rem"
+        placeholder="Nome"
+        formControlName="name"
+      />
+    </p-iconfield>
+    <small
+      *ngIf="formGroup.get('name')?.touched && formGroup.get('name')?.invalid"
+      class="text-red-500"
+      aria-live="polite"
+    >
+      É obrigatório enviar o nome
+    </small>
+    
+    <p-iconfield>
+      <p-inputicon styleClass="pi pi-envelope" />
+      <input
+        type="email"
+        pInputText
+        class="w-full border-round-2xl h-3rem"
+        placeholder="E-mail"
+        formControlName="email"
+        autocomplete="email"
+      />
+    </p-iconfield>
+    <small
+      *ngIf="formGroup.get('email')?.touched && formGroup.get('email')?.invalid"
+      class="text-red-500"
+      aria-live="polite"
+    >
+      {{ formGroup.get('email')?.errors?.['required'] ? 'É obrigatório enviar um email válido' : 'Email inválido' }}
+    </small>
+
+    <p-iconfield>
+      <p-inputicon styleClass="pi pi-id-card" />
+      <input
+        type="text"
+        pInputText
+        class="w-full border-round-2xl h-3rem"
+        placeholder="CPF"
+        formControlName="cpf"
+      />
+    </p-iconfield>
+    <small
+      *ngIf="formGroup.get('cpf')?.touched && (formGroup.get('cpf')?.invalid || !isCpfValid)"
+      class="text-red-500"
+      aria-live="polite"
+    >
+      {{ isCpfValid ? 'CPF inválido' : 'É obrigatório enviar um CPF válido' }}
+    </small>
+
+    <p-datepicker 
+      formControlName="birthDate" 
+      [iconDisplay]="'input'" [showIcon]="true" 
+      inputId="icondisplay" placeholder="Data de nascimento" 
+      [minDate]="minDate" [maxDate]="maxDate"
+      inputStyleClass="w-full border-round-2xl h-3rem"
+    />
+    <small
+      *ngIf="formGroup.get('birthDate')?.touched && formGroup.get('birthDate')?.invalid"
+      class="text-red-500"
+      aria-live="polite"
+    >
+      É obrigatório enviar uma data válida
+    </small>
+
+    <div
+      class="flex align-items-center gap-1 w-full border-1 border-round-2xl border-gray-300 px-2 h-3rem"
+      role="group"
+      for="password"
+    >
+      <i class="pi pi-lock text-lg text-gray-400" id="password-label"></i>
+      <p-password
+        id="password"
+        formControlName="password"
+        placeholder="Senha"
+        [toggleMask]="true"
+        inputStyleClass="w-full border-0 border-round-2xl h-2rem shadow-none"
+        styleClass="w-full"
+        autocomplete="password"
+      ></p-password>
+    </div>
+    <small
+      *ngIf="formGroup.get('password')?.touched && formGroup.get('password')?.invalid"
+      class="text-red-500"
+    >
+      É obrigatório informar uma senha
+    </small>
+
+    <div
+      class="flex align-items-center gap-1 w-full border-1 border-round-2xl border-gray-300 px-2 h-3rem"
+      role="group"
+      for="confirmPassword"
+    >
+      <i class="pi pi-lock text-lg text-gray-400" id="confirm-password-label"></i>
+      <p-password
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        placeholder="Confirme a senha"
+        [toggleMask]="true"
+        inputStyleClass="w-full border-0 border-round-2xl h-2rem shadow-none"
+        styleClass="w-full"
+        [feedback]="false"
+        autocomplete="new-password"
+      ></p-password>
+    </div>
+    <small
+      *ngIf="formGroup.get('confirmPassword')?.touched && formGroup.get('confirmPassword')?.invalid"
+      class="text-red-500"
+    >
+      É obrigatório confirmar a senha
+    </small>
+    <small
+      *ngIf="formGroup.get('confirmPassword')?.touched && 
+      (formGroup.get('password')?.value !== formGroup.get('confirmPassword')?.value)"
+      class="text-red-500"
+    >
+      As senhas devem ser iguais
+    </small>
+
+    <button
+      pButton
+      type="submit"
+      label="Entrar"
+      class="w-full mt-2 bg-indigo-600 border-none text-white border-round-2xl h-3rem"
+    ></button>
+    <small (click)="navigateToLogin()">Já possui uma conta? <span class="text-blue-500 cursor-pointer">Entre</span></small>
+  </form>
+</main>
+
