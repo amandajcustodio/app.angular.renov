@@ -6,7 +6,7 @@ import { InputText } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { EquipmentForm } from '../../../../shared/types/interfaces/equipment-form.interface';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertInputComponent } from '../../../../shared/components/alert-input/alert-input.component';
+import { ModalNotificationFormComponent } from '../../../../shared/modals/modal-notification-form/modal-notification-form.component';
 import { Notification } from '../../../../shared/types/interfaces/notification.interface';
 import { notificationMockList } from '../../../../shared/types/mocks/notification.mock.component';
 import { NotificationCardComponent } from '../../../../shared/components/notification-card/notification-card.component';
@@ -23,7 +23,7 @@ import { NotificationForm } from '../../../../shared/types/interfaces/notificati
     ToggleSwitchModule, 
     InputText, 
     ButtonModule,
-    AlertInputComponent,
+    ModalNotificationFormComponent,
     NotificationCardComponent
   ],
   templateUrl: './create.component.html',
@@ -58,8 +58,8 @@ export class CreateEquipmentComponent implements OnInit {
 
   //#region Public Properties
 
-  @ViewChild(AlertInputComponent) 
-  public modal!: AlertInputComponent;
+  @ViewChild(ModalNotificationFormComponent) 
+  public modal!: ModalNotificationFormComponent;
 
   public isUpdate: boolean = false;
 

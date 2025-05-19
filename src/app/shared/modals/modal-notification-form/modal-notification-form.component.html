@@ -16,6 +16,15 @@
       />
     </div>
 
+    <div class="flex flex-column gap-1">
+      <label class="text-gray-400">Descrição</label>
+      <textarea
+        formControlName="description"
+        rows="3"
+        class="p-inputtext border border-gray-300 text-gray-400 rounded-md"
+      ></textarea>
+    </div>
+
     <div class="flex flex-column gap-1" *ngIf="showEquipment">
       <label class="text-gray-400">Equipamento</label>
       <p-select
@@ -29,28 +38,26 @@
       </p-select>
     </div>
 
-    <div class="flex flex-column gap-1">
-      <label class="text-gray-400">Data de Alerta</label>
-      <p-datepicker formControlName="alertDate" inputStyleClass="w-full" class="border border-gray-300 text-gray-400" dateFormat="dd/mm/yy" />
+    <div class="flex gap-2">
+      <div class="flex flex-column gap-1">
+        <label class="text-gray-400">Data Programada</label>
+        <p-datepicker formControlName="alertDate" inputStyleClass="w-full" class="border border-gray-300 text-gray-400" dateFormat="dd/mm/yy" />
+      </div>
+      
+      <div class="flex flex-column gap-1">
+        <label class="text-gray-400">Hora Programada</label>
+        <p-datepicker formControlName="alertTime" [timeOnly]="true"  inputStyleClass="w-full" class="border border-gray-300 text-gray-400" dateFormat="dd/mm/yy" />
+      </div>
     </div>
-
-    <div class="flex flex-column gap-1">
-      <label class="text-gray-400">Última data de alerta</label>
-      <p-datepicker formControlName="maxAlertDate" inputStyleClass="w-full" class="border border-gray-300 text-gray-400" dateFormat="dd/mm/yy" />
-    </div>
-
+  
     <div class="flex flex-column gap-1">
       <label class="text-gray-400">Repetição (em dias)</label>
       <p-inputnumber formControlName="constance" inputId="minmax" mode="decimal" [min]="0" [max]="100" />
     </div>
 
-    <div class="flex flex-column gap-1">
-      <label class="text-gray-400">Descrição</label>
-      <textarea
-        formControlName="description"
-        rows="3"
-        class="p-inputtext border border-gray-300 text-gray-400 rounded-md"
-      ></textarea>
+    <div class="flex gap-1 align-items-center">
+      <p-toggleswitch formControlName="isActive" id="toggle" />
+      <label for="toggle">Ativar notificação</label>
     </div>
 
     <div class="flex justify-end">

@@ -11,9 +11,10 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { Notification } from '../../types/interfaces/notification.interface';
 import { equipmentMockList } from '../../types/mocks/equipment.mock.component';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ToggleSwitch } from 'primeng/toggleswitch';
 
 @Component({
-  selector: 'app-alert-input',
+  selector: 'app-modal-notification-form',
   standalone: true,
   imports: [
     CommonModule, 
@@ -23,20 +24,22 @@ import { InputNumberModule } from 'primeng/inputnumber';
     SelectModule, 
     DialogModule, 
     ButtonModule,
-    DatePickerModule,
-    InputNumberModule
+    InputNumberModule,
+    ToggleSwitch,
+    DatePickerModule
   ],
-  templateUrl: './alert-input.component.html',
+  templateUrl: './modal-notification-form.component.html',
 })
-export class AlertInputComponent implements OnInit {
+export class ModalNotificationFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     this.formGroup = this.formBuilder.group<NotificationForm>({
       title: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       equipmentId: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       alertDate: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
-      maxAlertDate: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
+      alertTime: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
+      isActive: new FormControl (false, { nonNullable: true, validators: [Validators.required] }),
       constance: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
-      description: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      description: new FormControl('', { nonNullable: true, validators: [Validators.required] })
     });
   }
 
@@ -61,6 +64,9 @@ export class AlertInputComponent implements OnInit {
   public ngOnInit(): void {
     if (this.showEquipment)
       this.loadEquipments();
+
+    if (this.isUpdate && this.notification)
+      this.initializeFormGroup(this.notification);
   }
 
   public open(): void {
@@ -89,5 +95,19 @@ export class AlertInputComponent implements OnInit {
 
   private loadEquipments(): void {
     this.equipmentList = equipmentMockList.filter(eq => eq.isActive);
+  }
+
+  private initializeFormGroup(entity: Notification): void {
+    this.formGroup.patchValue({
+      title: entity.title,
+      description: entity.description,
+      isActive: entity.isActive,
+      equipmentId: entity.equipmentId,
+      alertTime: entity.alertTime,
+      alertDate: entity.alertDate,
+      constance: entity.constance
+    });
+
+    this.formGroup.updateValueAndValidity();
   }
 }

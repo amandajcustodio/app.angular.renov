@@ -55,3 +55,7 @@ html {
   inset-inline-end: auto !important;
   inset-inline-start: 10px;
 }
+
+.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider {
+  background-color: indigo !important;
+}

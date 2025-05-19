@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-import { AlertInputComponent } from '../alert-input/alert-input.component';
+import { ModalNotificationFormComponent } from '../../modals/modal-notification-form/modal-notification-form.component';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [CommonModule, RouterModule, ButtonModule, AlertInputComponent],
+  imports: [CommonModule, RouterModule, ButtonModule, ModalNotificationFormComponent],
   templateUrl: './menu.component.html',
 })
 export class MenuComponent {
@@ -15,8 +15,8 @@ export class MenuComponent {
     private readonly router: Router
   ) { }
 
-  @ViewChild(AlertInputComponent) 
-  public modal!: AlertInputComponent;
+  @ViewChild(ModalNotificationFormComponent) 
+  public modal!: ModalNotificationFormComponent;
 
   public isActive(path: string): boolean {
     return this.router.url.includes(path);

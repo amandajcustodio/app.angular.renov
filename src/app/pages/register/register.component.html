@@ -88,6 +88,9 @@
         inputStyleClass="w-full border-0 border-round-2xl h-2rem shadow-none"
         styleClass="w-full"
         autocomplete="password"
+        [weakLabel]="'Muito fraca'"
+        [mediumLabel]="'Pode Melhorar'"
+        [strongLabel]="'Segura!'"
       ></p-password>
     </div>
     <small
@@ -131,7 +134,7 @@
     <button
       pButton
       type="submit"
-      label="Entrar"
+      label="Cadastrar-se"
       class="w-full mt-2 bg-indigo-600 border-none text-white border-round-2xl h-3rem"
     ></button>
     <small (click)="navigateToLogin()">Já possui uma conta? <span class="text-blue-500 cursor-pointer">Entre</span></small>
