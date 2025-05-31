@@ -1,10 +1,11 @@
 export interface Equipment {
-  id: string;
-  isActive: boolean;
-  model: string;
-  manufacturer: string;
-  serialNumber: string;
-  createdAt: Date;
-  notificationAlert: boolean;
-  notificationIds?: string[]
+  equipamentoID: number;
+  usuarioID: number;
+  modelo: string;
+  fabricante: string;
+  numeroSerie: string;
+  dataCriacao: Date;
+  temNotificacao: boolean;
+  notificacoesIds?: number[];
+  status: boolean;
 }

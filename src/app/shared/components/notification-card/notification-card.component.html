@@ -1,9 +1,9 @@
 <div class="p-card p-3 border-round-md shadow-1 mb-2">
   <div class="flex justify-content-between align-items-center mb-2">
     <div class="flex flex-column gap-1">
-      <div class="text-lg font-medium">{{ notification.equipment?.model || 'Equipamento' }}</div>
-      <div class="text-sm text-color-secondary overflow-hidden text-overflow-ellipsis white-space-nowrap" style="max-width: 23ch;">{{ notification.description }}</div>
+      <div class="text-lg font-medium">{{ notification.equipamento?.modelo || 'Equipamento' }}</div>
+      <div class="text-sm text-color-secondary overflow-hidden text-overflow-ellipsis white-space-nowrap" style="max-width: 23ch;">{{ notification.descricao }}</div>
     </div>
-    <span class="text-color-secondary">{{ notification.alertDate | date:'dd/MM/yyyy' }}</span>
+    <span class="text-color-secondary">{{ notification.dataDiaAlerta | date:'dd/MM/yyyy' }}</span>
   </div>
 </div>

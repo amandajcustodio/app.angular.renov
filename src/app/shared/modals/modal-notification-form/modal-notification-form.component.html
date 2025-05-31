@@ -10,7 +10,7 @@
     <div class="flex flex-column gap-1">
       <label class="text-gray-400">Título</label>
       <input
-        formControlName="title"
+        formControlName="titulo"
         type="text"
         class="p-inputtext border border-gray-300 text-gray-400 rounded-md"
       />
@@ -19,7 +19,7 @@
     <div class="flex flex-column gap-1">
       <label class="text-gray-400">Descrição</label>
       <textarea
-        formControlName="description"
+        formControlName="descricao"
         rows="3"
         class="p-inputtext border border-gray-300 text-gray-400 rounded-md"
       ></textarea>
@@ -29,9 +29,9 @@
       <label class="text-gray-400">Equipamento</label>
       <p-select
         [options]="equipmentList"
-        optionLabel="model"
+        optionLabel="modelo"
         optionValue="id"
-        formControlName="equipmentId"
+        formControlName="equipamentoId"
         class="border border-gray-300 text-gray-400"
         placeholder="Selecione"
       >
@@ -41,12 +41,12 @@
     <div class="flex gap-2">
       <div class="flex flex-column gap-1">
         <label class="text-gray-400">Data Programada</label>
-        <p-datepicker formControlName="alertDate" inputStyleClass="w-full" class="border border-gray-300 text-gray-400" dateFormat="dd/mm/yy" />
+        <p-datepicker formControlName="dataDiaAlerta" inputStyleClass="w-full" class="border border-gray-300 text-gray-400" dateFormat="dd/mm/yy" />
       </div>
       
       <div class="flex flex-column gap-1">
         <label class="text-gray-400">Hora Programada</label>
-        <p-datepicker formControlName="alertTime" [timeOnly]="true"  inputStyleClass="w-full" class="border border-gray-300 text-gray-400" dateFormat="dd/mm/yy" />
+        <p-datepicker formControlName="dataHoraAlerta" [timeOnly]="true"  inputStyleClass="w-full" class="border border-gray-300 text-gray-400" dateFormat="dd/mm/yy" />
       </div>
     </div>
   
@@ -56,7 +56,7 @@
     </div>
 
     <div class="flex gap-1 align-items-center">
-      <p-toggleswitch formControlName="isActive" id="toggle" />
+      <p-toggleswitch formControlName="status" id="toggle" />
       <label for="toggle">Ativar notificação</label>
     </div>
 

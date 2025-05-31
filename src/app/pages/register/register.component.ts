@@ -9,9 +9,12 @@ import { InputIcon } from 'primeng/inputicon';
 import { IconField } from 'primeng/iconfield';
 import { PasswordModule } from 'primeng/password';
 import { DatePickerModule } from 'primeng/datepicker';
+import { RegisterPayload } from '../../shared/types/payloads/auth.payload';
+import { UsersService } from '../../shared/services/users/users.service';
 
 @Component({
   selector: 'app-register',
+  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,14 +30,15 @@ import { DatePickerModule } from 'primeng/datepicker';
 export class RegisterComponent {
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly userService: UsersService
   ) {
     this.formGroup = this.formBuilder.group<RegisterForm>({
-      name: new FormControl<string>('', { nonNullable: true, validators: [ Validators.required ]}),
+      nome: new FormControl<string>('', { nonNullable: true, validators: [ Validators.required ]}),
       email: new FormControl<string>('', { nonNullable: true, validators: [ Validators.required, Validators.email ]}),
-      password: new FormControl<string>('', { nonNullable: true, validators: [ Validators.required ]}),
+      senha: new FormControl<string>('', { nonNullable: true, validators: [ Validators.required ]}),
       confirmPassword: new FormControl<string>('', { nonNullable: true, validators: [ Validators.required ]}),
-      birthDate: new FormControl<Date | undefined>(undefined, { nonNullable: true, validators: [ Validators.required ]}),
+      dataNascimento: new FormControl<Date | undefined>(undefined, { nonNullable: true, validators: [ Validators.required ]}),
       cpf: new FormControl<string>('', { nonNullable: true, validators: [ Validators.required ]}),
     });
 
@@ -53,14 +57,43 @@ export class RegisterComponent {
   public minDate!: Date;
 
   public get isCpfValid(): boolean {
-    return false;
+    const cpf = this.formGroup.controls['cpf'].value.replace(/\D/g, '');
+
+    if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
+      return false;
+    }
+
+    const calcCheckDigit = (cpf: string, factor: number): number => {
+      let total = 0;
+      for (let i = 0; i < factor - 1; i++) {
+        total += parseInt(cpf[i]) * (factor - i);
+      }
+      const remainder = (total * 10) % 11;
+      return remainder === 10 ? 0 : remainder;
+    };
+
+    const firstDigit = calcCheckDigit(cpf, 10);
+    const secondDigit = calcCheckDigit(cpf, 11);
+
+    return (
+      firstDigit === parseInt(cpf[9]) &&
+      secondDigit === parseInt(cpf[10])
+    );
   }
 
   public async register(): Promise<void> {
     if (this.formGroup.valid) {
-      const { name, email } = this.formGroup.value;
+      try {
+        const formValue = this.formGroup.getRawValue();
+        const payload: RegisterPayload = {
+          ...formValue,
+          dataNascimento: formValue.dataNascimento || new Date()
+        };
 
-      this.navigateToLogin();
+        await this.userService.register(payload);
+
+        this.navigateToLogin();
+      } catch (error) { }
     } else {
       this.formGroup.markAllAsTouched();
     }

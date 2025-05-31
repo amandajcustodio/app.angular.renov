@@ -31,7 +31,7 @@
       <i class="pi pi-lock text-lg text-gray-400" id="password-label"></i>
       <p-password
         id="password"
-        formControlName="password"
+        formControlName="senha"
         placeholder="Senha"
         [toggleMask]="true"
         inputStyleClass="w-full border-0 border-round-2xl h-2rem shadow-none"
@@ -40,7 +40,7 @@
       ></p-password>
     </div>
     <small
-      *ngIf="formGroup.get('password')?.touched && formGroup.get('password')?.invalid"
+      *ngIf="formGroup.get('senha')?.touched && formGroup.get('senha')?.invalid"
       class="text-red-500"
     >
       É obrigatório informar uma senha

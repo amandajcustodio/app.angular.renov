@@ -33,13 +33,13 @@ import { ToggleSwitch } from 'primeng/toggleswitch';
 export class ModalNotificationFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     this.formGroup = this.formBuilder.group<NotificationForm>({
-      title: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-      equipmentId: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-      alertDate: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
-      alertTime: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
-      isActive: new FormControl (false, { nonNullable: true, validators: [Validators.required] }),
+      titulo: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      equipamentoId: new FormControl(0, { nonNullable: true, validators: [Validators.required] }),
+      dataDiaAlerta: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
+      dataHoraAlerta: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
+      status: new FormControl (false, { nonNullable: true, validators: [Validators.required] }),
       constance: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
-      description: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+      descricao: new FormControl('', { nonNullable: true, validators: [Validators.required] })
     });
   }
 
@@ -53,7 +53,7 @@ export class ModalNotificationFormComponent implements OnInit {
   public showEquipment: boolean = true;
 
   @Input()
-  public alertId: string = '';
+  public alertId: number = 0;
 
   public equipmentList: Equipment[] = [];
 
@@ -94,17 +94,17 @@ export class ModalNotificationFormComponent implements OnInit {
   }
 
   private loadEquipments(): void {
-    this.equipmentList = equipmentMockList.filter(eq => eq.isActive);
+    this.equipmentList = equipmentMockList.filter(eq => eq.status);
   }
 
   private initializeFormGroup(entity: Notification): void {
     this.formGroup.patchValue({
-      title: entity.title,
-      description: entity.description,
-      isActive: entity.isActive,
-      equipmentId: entity.equipmentId,
-      alertTime: entity.alertTime,
-      alertDate: entity.alertDate,
+      titulo: entity.titulo,
+      descricao: entity.descricao,
+      status: entity.status,
+      equipamentoId: entity.equipamentoId,
+      dataHoraAlerta: entity.dataHoraAlerta,
+      dataDiaAlerta: entity.dataDiaAlerta,
       constance: entity.constance
     });
 

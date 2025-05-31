@@ -1,13 +1,14 @@
 import { Equipment } from "./equipment.interface";
 
 export interface Notification {
-  id: string; 
-  title: string; 
-  equipmentId: string; 
-  alertDate: Date; 
-  alertTime: Date;
-  isActive: boolean;
+  notificacaoId: number; 
+  titulo: string; 
+  equipamentoId: number; 
+  usuarioId: number; 
+  dataDiaAlerta: Date; 
+  dataHoraAlerta: Date;
+  status: boolean;
+  descricao?: string;
   constance?: number;
-  description?: string;
-  equipment?: Equipment;
+  equipamento?: Equipment;
 }

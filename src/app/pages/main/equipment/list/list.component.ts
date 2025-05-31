@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Equipment } from '../../../../shared/types/interfaces/equipment.interface';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgClass, NgFor } from '@angular/common';
 import { InputText } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -17,7 +17,8 @@ import { equipmentMockList } from '../../../../shared/types/mocks/equipment.mock
     NgClass,
     InputText,
     IconFieldModule,
-    InputIconModule
+    InputIconModule,
+    ReactiveFormsModule
   ],
   templateUrl: './list.component.html'
 })
@@ -32,7 +33,7 @@ export class ListEquipmentComponent {
 
   public get filteredList(): Equipment[] {
     return this.equipments.filter(equip =>
-      equip.model.toLowerCase().includes(this.searchTerm.toLowerCase())
+      equip.modelo.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
@@ -40,7 +41,7 @@ export class ListEquipmentComponent {
     await this.router.navigate(['main/equipment/create']);
   }
 
-  public async update(id: string): Promise<void> {
+  public async update(id: number): Promise<void> {
     await this.router.navigate([`main/equipment/update/${id}`], { queryParams: { isUpdate: true } });
   }
 }

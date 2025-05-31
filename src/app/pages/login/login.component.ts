@@ -32,7 +32,7 @@ export class LoginComponent {
   ) {
     this.formGroup = this.formBuilder.group<LoginForm>({
       email: new FormControl('', { nonNullable: true, validators: [ Validators.required, Validators.email ]}),
-      password: new FormControl('', { nonNullable: true, validators: [ Validators.required ]})
+      senha: new FormControl('', { nonNullable: true, validators: [ Validators.required ]})
     });
   }
   
@@ -40,8 +40,7 @@ export class LoginComponent {
 
   public async login(): Promise<void> {
     if (this.formGroup.valid) {
-      const { password, email } = this.formGroup.value;
-      console.log('Login com:', password, email);
+      const { senha, email } = this.formGroup.value;
       this.router.navigate(['/main/equipment/list']);
     } else {
       this.formGroup.markAllAsTouched();

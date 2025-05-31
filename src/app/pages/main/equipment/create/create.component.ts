@@ -37,16 +37,16 @@ export class CreateEquipmentComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute
   ) {
     this.formGroup = this.formBuilder.group<EquipmentForm>({
-      model: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-      manufacturer: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-      serialNumber: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-      createdAt: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
-      notificationAlert: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
-      notification: new FormArray<FormGroup<NotificationForm>>([])
+      modelo: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      fabricante: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      numeroSerie: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      dataCriacao: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
+      temNotificacao: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
+      notificacoes: new FormArray<FormGroup<NotificationForm>>([])
     });
 
     this.activatedRoute.paramMap.subscribe(params => {
-      this.equipmentId = params.get('id') ?? '';
+      this.equipmentId = +(params.get('id') || 0) ;
     });
 
     this.activatedRoute.queryParamMap.subscribe(queryParams => {
@@ -63,9 +63,9 @@ export class CreateEquipmentComponent implements OnInit {
 
   public isUpdate: boolean = false;
 
-  public alertId: string = '';
+  public alertId?: number;
 
-  public equipmentId: string = '';
+  public equipmentId!: number;
 
   public formGroup!: FormGroup<EquipmentForm>;
 
@@ -105,20 +105,18 @@ export class CreateEquipmentComponent implements OnInit {
     await this.router.navigate(['main/equipment/list']);
   }
 
-  public loadEquipment(id: string): void {
-    const equipment = equipmentMockList.find(eq => eq.id === id);
+  public loadEquipment(id: number): void {
+    const equipment = equipmentMockList.find(eq => eq.equipamentoID === id);
     if (equipment) {
       this.formGroup.patchValue(equipment);
       this.formGroup.updateValueAndValidity();
 
-      if (equipment.notificationIds?.length) this.loadNotificationByEquipment(equipment.notificationIds);
+      if (equipment.notificacoesIds?.length) this.loadNotificationByEquipment(equipment.notificacoesIds);
     }
   }
 
-  public loadNotificationByEquipment(ids: string[]): void {
-    console.log( notificationMockList.filter(notif => notif.id), ids)
-    this.notifications = notificationMockList.filter(notif => ids.includes(notif.id));
-    console.log(this.notifications)
+  public loadNotificationByEquipment(ids: number[]): void {
+    this.notifications = notificationMockList.filter(notif => ids.includes(notif.notificacaoId));
   }
 
   //#endregion

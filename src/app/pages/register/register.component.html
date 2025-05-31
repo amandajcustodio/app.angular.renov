@@ -11,11 +11,11 @@
         pInputText
         class="w-full border-round-2xl h-3rem"
         placeholder="Nome"
-        formControlName="name"
+        formControlName="nome"
       />
     </p-iconfield>
     <small
-      *ngIf="formGroup.get('name')?.touched && formGroup.get('name')?.invalid"
+      *ngIf="formGroup.get('nome')?.touched && formGroup.get('nome')?.invalid"
       class="text-red-500"
       aria-live="polite"
     >
@@ -60,14 +60,14 @@
     </small>
 
     <p-datepicker 
-      formControlName="birthDate" 
+      formControlName="dataNascimento" 
       [iconDisplay]="'input'" [showIcon]="true" 
       inputId="icondisplay" placeholder="Data de nascimento" 
       [minDate]="minDate" [maxDate]="maxDate"
       inputStyleClass="w-full border-round-2xl h-3rem"
     />
     <small
-      *ngIf="formGroup.get('birthDate')?.touched && formGroup.get('birthDate')?.invalid"
+      *ngIf="formGroup.get('dataNascimento')?.touched && formGroup.get('dataNascimento')?.invalid"
       class="text-red-500"
       aria-live="polite"
     >
@@ -82,7 +82,7 @@
       <i class="pi pi-lock text-lg text-gray-400" id="password-label"></i>
       <p-password
         id="password"
-        formControlName="password"
+        formControlName="senha"
         placeholder="Senha"
         [toggleMask]="true"
         inputStyleClass="w-full border-0 border-round-2xl h-2rem shadow-none"
@@ -94,7 +94,7 @@
       ></p-password>
     </div>
     <small
-      *ngIf="formGroup.get('password')?.touched && formGroup.get('password')?.invalid"
+      *ngIf="formGroup.get('senha')?.touched && formGroup.get('senha')?.invalid"
       class="text-red-500"
     >
       É obrigatório informar uma senha
@@ -125,7 +125,7 @@
     </small>
     <small
       *ngIf="formGroup.get('confirmPassword')?.touched && 
-      (formGroup.get('password')?.value !== formGroup.get('confirmPassword')?.value)"
+      (formGroup.get('senha')?.value !== formGroup.get('confirmPassword')?.value)"
       class="text-red-500"
     >
       As senhas devem ser iguais

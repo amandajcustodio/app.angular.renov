@@ -13,26 +13,26 @@
       <h3 class="text-base font-medium text-color mb-3">Informações</h3>
         <div class="flex flex-column gap-2">
           <input pInputText placeholder="Modelo" 
-            formControlName="model" class="w-full border-round-2xl h-3rem" 
+            formControlName="modelo" class="w-full border-round-2xl h-3rem" 
           />
           <input pInputText placeholder="Fabricante" 
-            formControlName="manufacturer" class="w-full border-round-2xl h-3rem" 
+            formControlName="fabricante" class="w-full border-round-2xl h-3rem" 
           />
           <input pInputText placeholder="Número de série" 
-            formControlName="serialNumber" class="w-full border-round-2xl h-3rem" 
+            formControlName="numeroSerie" class="w-full border-round-2xl h-3rem" 
           />
           <input type="date" pInputText placeholder="Data de instalação"
-            formControlName="createdAt" class="w-full border-round-2xl h-3rem"
+            formControlName="dataCriacao" class="w-full border-round-2xl h-3rem"
           />
       </div>
     </div>
 
     <div class="flex align-items-center justify-content-between p-3 mt-3 bg-white border-round-xl shadow-1">
-      <label for="notificationAlert" class="font-medium">Alerta de Manutenção</label>
-      <p-toggleswitch id="notificationAlert" formControlName="notificationAlert" />
+      <label for="temNotificacao" class="font-medium">Alerta de Manutenção</label>
+      <p-toggleswitch id="temNotificacao" formControlName="temNotificacao" />
     </div>
 
-    <div class="flex flex-column gap-2 mt-3" *ngIf="formGroup.get('notificationAlert')?.value">
+    <div class="flex flex-column gap-2 mt-3" *ngIf="formGroup.get('temNotificacao')?.value">
       <div class="text-lg border-dashed border-2 border-indigo-600 text-center text-indigo-600 border-round-2xl p-3">
         <button (click)="openDialog()" class="w-full text-indigo-600 font-medium bg-transparent border-none">
           Criar alerta
@@ -55,4 +55,4 @@
   </form>
 </main>
 
-<app-modal-notification-form #modal [alertId]="isUpdate ? alertId : ''" [showEquipment]="false"></app-modal-notification-form>
+<app-modal-notification-form #modal [alertId]="isUpdate && alertId ? alertId : 0" [showEquipment]="false"></app-modal-notification-form>
