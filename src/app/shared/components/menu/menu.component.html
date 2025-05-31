@@ -1,0 +1,17 @@
+<div class="fixed bottom-0 max-h-4rem left-0 right-0 mb-3 mx-2 p-2 flex justify-content-around align-items-center bg-white border-round-2xl shadow-4" style="height: 70px;">
+  <button pButton (click)="navigateTo('/main/equipment/list')" class="flex border-0 bg-white flex-column align-items-center text-color shadow-none">
+    <i class="pi pi-home text-xl" [ngClass]="{'text-indigo-600': isActive('/equipment/list'), 'text-color': !isActive('/equipment/list')}"></i>
+  </button>
+
+  <button pButton (click)="openDialog()" 
+    class="flex justify-content-center align-items-center border-0 border-circle bg-indigo-600 text-white shadow-none" 
+    style="width: 75px; height: 75px; box-shadow: none;">
+    <i class="pi pi-plus text-2xl"></i>
+  </button>
+
+  <button pButton (click)="navigateTo('/main/notifications/list')" class="flex flex-column align-items-center text-color shadow-none border-0 bg-white">
+    <i class="pi pi-bell text-xl" [ngClass]="{'text-indigo-600': isActive('/notifications'), 'text-color': !isActive('/notifications')}"></i>
+  </button>
+</div>
+
+<app-modal-notification-form #modal></app-modal-notification-form>

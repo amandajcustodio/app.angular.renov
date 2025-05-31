@@ -1,0 +1,9 @@
+<div class="p-4">
+  <div class="flex justify-between">
+    <h2 class="text-2xl font-bold mb-4 text-indigo-900">Notificações</h2>
+  </div>
+
+  <div *ngFor="let notification of notifications">
+    <app-notification-item [notification]="notification"></app-notification-item>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<main class="flex flex-column justify-content-center align-items-center min-h-screen px-4 py-6">
+  <header class="mb-5">
+    <h1 class="text-4xl font-medium logo-font">Renov</h1>
+  </header>
+
+  <form [formGroup]="formGroup" (ngSubmit)="login()" class="w-full max-w-20rem flex flex-column gap-3 text-center" aria-label="Formulário de login">
+    <p-iconfield>
+      <p-inputicon styleClass="pi pi-user" />
+      <input
+        type="email"
+        pInputText
+        class="w-full border-round-2xl h-3rem"
+        placeholder="E-mail"
+        formControlName="email"
+        autocomplete="email"
+      />
+    </p-iconfield>
+    <small
+      *ngIf="formGroup.get('email')?.touched && formGroup.get('email')?.invalid"
+      class="text-red-500"
+      aria-live="polite"
+    >
+      {{ formGroup.get('email')?.errors?.['required'] ? 'É obrigatório enviar um email válido' : 'Email inválido' }}
+    </small>
+
+    <div
+      class="flex align-items-center gap-1 w-full border-1 border-round-2xl border-gray-300 px-2 h-3rem"
+      role="group"
+      for="password"
+    >
+      <i class="pi pi-lock text-lg text-gray-400" id="password-label"></i>
+      <p-password
+        id="password"
+        formControlName="senha"
+        placeholder="Senha"
+        [toggleMask]="true"
+        inputStyleClass="w-full border-0 border-round-2xl h-2rem shadow-none"
+        styleClass="w-full"
+        [feedback]="false"
+      ></p-password>
+    </div>
+    <small
+      *ngIf="formGroup.get('senha')?.touched && formGroup.get('senha')?.invalid"
+      class="text-red-500"
+    >
+      É obrigatório informar uma senha
+    </small>
+
+    <button
+      pButton
+      type="submit"
+      label="Entrar"
+      class="w-full mt-2 bg-indigo-600 border-none text-white border-round-2xl h-3rem"
+    ></button>
+    <small (click)="navigateToResgister()">Não tem uma conta? <span class="text-blue-500 cursor-pointer">Cadastre-se</span></small>
+  </form>
+
+  <p-divider class="w-full max-w-20rem my-5" type="solid">
+    <strong class="text-sm text-color-secondary">Entrar com</strong>
+  </p-divider>
+
+  <section class="w-full max-w-20rem flex flex-column gap-2" aria-label="Entrar com redes sociais">
+    <button
+      pButton
+      type="button"
+      class="w-full flex align-items-center justify-content-center gap-2 h-3rem bg-gray-50 text-gray-700 border-gray-100 border-round-2xl"
+      (click)="loginWithGoogle()"
+      aria-label="Entrar com Google"
+    >
+      <i class="pi pi-google text-xl"></i>
+      <span>Entrar com Google</span>
+    </button>
+
+    <button
+      pButton
+      type="button"
+      class="w-full flex align-items-center justify-content-center gap-2 h-3rem bg-gray-50 text-gray-700 border-gray-100 border-round-2xl"
+      (click)="loginWithApple()"
+      aria-label="Entrar com Apple"
+    >
+      <i class="pi pi-apple text-xl"></i>
+      <span>Entrar com Apple</span>
+    </button>
+  </section>
+</main>

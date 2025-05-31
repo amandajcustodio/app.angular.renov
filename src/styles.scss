@@ -1,0 +1,61 @@
+@import "primeicons/primeicons.css";
+
+* {
+  padding: 0;
+  margin: 0;
+
+  outline: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scrollbar-width: thin;
+  background-color: #fbffff !important;
+}
+
+*::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+*::-webkit-scrollbar-thumb {
+  opacity: 0;
+  border-radius: 3.1rem;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 1rem;
+}
+
+@font-face {
+  font-family: 'Gothic';
+  src: local('Century Gothic'), local('Gothic'), sans-serif;
+}
+
+.logo-font {
+  font-family: 'Gothic', 'Century Gothic', sans-serif;
+}
+
+.p-datepicker {
+  display: flex !important;
+
+  .p-inputtext {
+    padding-inline: 40px !important;
+  }
+}
+
+.p-datepicker-input-icon-container {
+  inset-inline-end: auto !important;
+  inset-inline-start: 10px;
+}
+
+.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider {
+  background-color: indigo !important;
+}
