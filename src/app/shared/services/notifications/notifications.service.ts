@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CreateNotificationPayload, UpdateNotificationPayload } from '../../types/payloads/notification.payload';
 import { BaseHttpService } from '../http/http.service';
 import { environment } from '../../../../environments/environment';
+import { Notification } from '../../types/interfaces/notification.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,8 @@ export class NotificationsService {
     await this.http.delete<void>(this.baseUrl.byId(id));
   }
 
-  async getByUserId(userId: number): Promise<CreateNotificationPayload[]> {
-    const users = await this.http.get<CreateNotificationPayload[]>(this.baseUrl.byId(userId));
+  async getByUserId(userId: number): Promise<Notification[]> {
+    const users = await this.http.get<Notification[]>(this.baseUrl.byId(userId));
 
     if (!users)
       throw new Error();
