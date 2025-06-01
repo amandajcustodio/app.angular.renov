@@ -37,7 +37,7 @@ export class NotificationsComponent implements OnInit {
   //#region Public Methods
 
   public async ngOnInit(): Promise<void> {
-    this.userId = this.usersService.getMe()?.usuarioID || 0;
+    this.userId = this.usersService.getMe()?.id || 0;
 
     await this.loadNotifications();
   }

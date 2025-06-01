@@ -44,14 +44,14 @@ export class ListEquipmentComponent implements OnInit {
 
   public searchTerm = '';
 
-  public equipments: Equipment[] = equipmentMockList;
+  public equipments?: Equipment[];
 
   //#endregion
 
   //#region Getters and Setters
 
-  public get filteredList(): Equipment[] {
-    return this.equipments.filter(equip =>
+  public get filteredList(): Equipment[] | undefined {
+    return this.equipments?.filter(equip =>
       equip.modelo.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
@@ -72,9 +72,18 @@ export class ListEquipmentComponent implements OnInit {
     await this.router.navigate([`main/equipment/update/${id}`], { queryParams: { isUpdate: true } });
   }
 
+  public async delete(id: number): Promise<void> {
+    try {
+      await this.equipmentsService.delete(id);
+      this.loadEquipments();
+    } catch (error) {
+      console.log('Erro ao deletar equipamento')
+    }
+  }
+
   public async loadEquipments(): Promise<void> {
     try {
-      const userId = await this.usersService.getMe()?.usuarioID || 0;
+      const userId = await this.usersService.getMe()?.id || 0;
       this.equipments = await this.equipmentsService.loadByUserId(userId);
     } catch (error) {
       console.log('Falha ao carregar equipamentos')

@@ -3,7 +3,7 @@ import { equipmentMockList } from "./equipment.mock.component";
 
 export const notificationMockList: Notification[] = [
   {
-    notificacaoId: 1,
+    id: 1,
     status: true,
     titulo: 'Troca de filtro de ar',
     equipamentoId: 1,
@@ -15,7 +15,7 @@ export const notificationMockList: Notification[] = [
     equipamento: equipmentMockList[0],
   },
   {
-    notificacaoId: 2,
+    id: 2,
     status: true,
     titulo: 'Verificação do sistema hidráulico',
     equipamentoId: 2,
@@ -27,7 +27,7 @@ export const notificationMockList: Notification[] = [
     equipamento: equipmentMockList[1],
   },
   {
-    notificacaoId: 3,
+    id: 3,
     status: true,
     titulo: 'Atualização de firmware',
     equipamentoId: 3,
@@ -38,7 +38,7 @@ export const notificationMockList: Notification[] = [
     equipamento: equipmentMockList[2],
   },
   {
-    notificacaoId: 4,
+    id: 4,
     status: true,
     titulo: 'Lubrificação dos eixos',
     equipamentoId: 4,
@@ -50,7 +50,7 @@ export const notificationMockList: Notification[] = [
     equipamento: equipmentMockList[3],
   },
   {
-    notificacaoId: 5,
+    id: 5,
     status: true,
     titulo: 'Verificação de bateria',
     equipamentoId: 5,
@@ -61,7 +61,7 @@ export const notificationMockList: Notification[] = [
     equipamento: equipmentMockList[4],
   },
   {
-    notificacaoId: 6,
+    id: 6,
     status: true,
     titulo: 'Revisão preventiva',
     equipamentoId: 6,

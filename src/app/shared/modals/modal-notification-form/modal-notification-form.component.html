@@ -30,7 +30,7 @@
       <p-select
         [options]="equipmentList"
         optionLabel="modelo"
-        optionValue="id"
+        optionValue="equipamentoID"
         formControlName="equipamentoId"
         class="border border-gray-300 text-gray-400"
         placeholder="Selecione"
@@ -64,7 +64,7 @@
       <button
         pButton
         label="Salvar"
-        [disabled]="formGroup.invalid"
+        [disabled]="formGroup.invalid || isLoading"
         class="bg-indigo-600 border-none text-white px-4 py-2 rounded-md"
         (click)="isUpdate ? update() : create()"
       ></button>

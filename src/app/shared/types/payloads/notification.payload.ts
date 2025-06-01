@@ -1,7 +1,6 @@
 export interface CreateNotificationPayload {
   titulo: string; 
-  equipamentoId: number; 
-  usuarioId: number; 
+  equipamentoId: number;
   dataDiaAlerta: Date; 
   dataHoraAlerta: Date;
   status: boolean;
@@ -11,8 +10,7 @@ export interface CreateNotificationPayload {
 
 export interface UpdateNotificationPayload {
   titulo?: string; 
-  equipamentoId?: number; 
-  usuarioId?: number; 
+  equipamentoId?: number;
   dataDiaAlerta?: Date; 
   dataHoraAlerta?: Date;
   status?: boolean;

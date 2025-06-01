@@ -88,7 +88,7 @@ export class CreateEquipmentComponent implements OnInit {
 
   public ngOnInit(): void {
     const user = this.userService.getMe();
-    this.userId = user ? user.usuarioID : 0;
+    this.userId = user ? user.id : 0;
 
     if (this.isUpdate && this.equipmentId) {
       this.loadEquipment(this.equipmentId);
@@ -102,11 +102,12 @@ export class CreateEquipmentComponent implements OnInit {
   public async create(): Promise<void> {
     try {
       const formValue = this.formGroup.getRawValue();
+      const dataCriacao = formValue.dataCriacao ? formValue.dataCriacao : new Date();
 
       const payload: CreateEquipmentPayload = {
         ...formValue,
         status: true,
-        dataCriacao: formValue.dataCriacao ? formValue.dataCriacao : new Date(),
+        dataCriacao: new Date(dataCriacao),
         usuarioID: this.userId
       }
 
@@ -146,7 +147,7 @@ export class CreateEquipmentComponent implements OnInit {
         this.formGroup.patchValue(equipment);
         this.formGroup.updateValueAndValidity();
 
-        if (equipment.notificacoesIds?.length) this.loadNotificationByEquipment(equipment.notificacoesIds);
+        if (equipment.notificacoes?.length) this.notifications = equipment.notificacoes;
       }
     } catch (error) {
       console.log('O equipamento não foi encontrado.')
@@ -154,7 +155,7 @@ export class CreateEquipmentComponent implements OnInit {
   }
 
   public loadNotificationByEquipment(ids: number[]): void {
-    this.notifications = notificationMockList.filter(notif => ids.includes(notif.notificacaoId));
+    this.notifications = notificationMockList.filter(notif => ids.includes(notif.id));
   }
 
   //#endregion

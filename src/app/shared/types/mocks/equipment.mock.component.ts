@@ -19,8 +19,7 @@ export const equipmentMockList: Equipment[] = [
     fabricante: 'GreenPower',
     numeroSerie: 'D4E5F6',
     dataCriacao: new Date('2023-11-22'),
-    temNotificacao: true,
-    notificacoesIds: [2, 1]
+    temNotificacao: true
   },
   {
     equipamentoID: 3,
@@ -40,8 +39,7 @@ export const equipmentMockList: Equipment[] = [
     fabricante: 'EcoEnergy',
     numeroSerie: 'J1K2L3',
     dataCriacao: new Date('2023-12-01'),
-    temNotificacao: true,
-    notificacoesIds: [3, 1]
+    temNotificacao: true
   },
   {
     equipamentoID: 5,
@@ -71,8 +69,7 @@ export const equipmentMockList: Equipment[] = [
     fabricante: 'RenovTech',
     numeroSerie: 'S1T2U3',
     dataCriacao: new Date('2023-10-12'),
-    temNotificacao: true,
-    notificacoesIds: [2, 3]
+    temNotificacao: true
   },
   {
     equipamentoID: 8,

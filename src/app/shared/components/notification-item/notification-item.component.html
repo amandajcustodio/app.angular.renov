@@ -1,14 +1,15 @@
-<div class="bg-white p-3 flex justify-content-between align-items-center border-round-2xl shadow-3 mb-3">
+<div class="bg-white p-3 flex justify-content-between align-items-center cursor-pointer border-round-2xl shadow-3 mb-3" (click)="openDialog()">
   <div class="flex flex-column">
     <span class="font-bold">{{ notification.titulo }}</span>
     <span class="text-sm text-gray-500">{{ notification.descricao }}</span>
     <a class="text-indigo-600 text-sm mt-2">{{ notification.equipamento?.modelo }}</a>
   </div>
   <div class="flex flex-column align-items-end">
-    <button pButton class="bg-indigo-600 border-circle border-0 p-2" [ngClass]="{'bg-gray-300': notification.dataDiaAlerta < today}">
+    <button pButton class="bg-indigo-600 border-circle border-0 p-2" [ngClass]="{'bg-gray-300': notification.dataDiaAlerta < today && !notification.status}">
       <i class="pi pi-bell text-white"></i>
     </button>
     <span class="text-sm text-gray-400 mt-2">{{ notification.dataDiaAlerta | date: 'dd/MM' }}</span>
   </div>
 </div>
 
+<app-modal-notification-form #modal [notification]="notification" [alertId]="notification.id" [isUpdate]="true"></app-modal-notification-form>

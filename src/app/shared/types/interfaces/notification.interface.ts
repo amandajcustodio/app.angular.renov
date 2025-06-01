@@ -1,7 +1,7 @@
 import { Equipment } from "./equipment.interface";
 
 export interface Notification {
-  notificacaoId: number; 
+  id: number; 
   titulo: string; 
   equipamentoId: number; 
   usuarioId: number; 

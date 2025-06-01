@@ -53,7 +53,7 @@ export const routes: Routes = [
           title: 'Visulizar notificações',
           fullscreen: true,
         },
-      },
+      }
     ]
   },
   { path: '', redirectTo:'login', pathMatch: 'full' },

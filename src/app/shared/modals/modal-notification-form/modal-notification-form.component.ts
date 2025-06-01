@@ -11,12 +11,12 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { Notification } from '../../types/interfaces/notification.interface';
-import { equipmentMockList } from '../../types/mocks/equipment.mock.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToggleSwitch } from 'primeng/toggleswitch';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 import { CreateNotificationPayload, UpdateNotificationPayload } from '../../types/payloads/notification.payload';
 import { UsersService } from '../../services/users/users.service';
+import { EquipmentsService } from '../../services/equipments/equipments.service';
 
 //#endregion
 
@@ -44,7 +44,8 @@ export class ModalNotificationFormComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly notificationsService: NotificationsService,
-    private readonly usersService: UsersService
+    private readonly usersService: UsersService,
+    private readonly equipmentsService: EquipmentsService
   ) {
     this.formGroup = this.formBuilder.group<NotificationForm>({
       titulo: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
@@ -81,12 +82,14 @@ export class ModalNotificationFormComponent implements OnInit {
 
   public userId!: number;
 
+  public isLoading: boolean = false;
+
   //#endregion
 
   //#region Public Methods
 
   public ngOnInit(): void {
-    this.userId = this.usersService.getMe()?.usuarioID || 0;
+    this.userId = this.usersService.getMe()?.id || 0;
 
     if (this.showEquipment)
       this.loadEquipments();
@@ -105,37 +108,47 @@ export class ModalNotificationFormComponent implements OnInit {
 
   public async create(): Promise<void> {
     try {
+      this.isLoading = true;
       const formValue = this.formGroup.getRawValue();
+
+      const dataHora = formValue.dataHoraAlerta ? formValue.dataHoraAlerta : new Date();
+      const dataDia = formValue.dataDiaAlerta ? formValue.dataDiaAlerta : new Date();
 
       const payload: CreateNotificationPayload = {
         ...formValue,
-        usuarioId: this.userId,
         equipamentoId: formValue.equipamentoId ? formValue.equipamentoId : 0,
-        dataHoraAlerta: formValue.dataHoraAlerta ? formValue.dataHoraAlerta : new Date(),
-        dataDiaAlerta: formValue.dataDiaAlerta ? formValue.dataDiaAlerta : new Date(),
+        dataHoraAlerta: new Date(dataHora),
+        dataDiaAlerta: new Date(dataDia)
       }
 
       await this.notificationsService.create(payload);
     } catch (error) {
       console.log('Erro ao criar notificação');
+    } finally {
+      this.isLoading = false;
     }
   }
 
   public async update(): Promise<void> {
     try {
+      this.isLoading = true;
       const formValue = this.formGroup.getRawValue();
+
+      const dataHora = formValue.dataHoraAlerta ? formValue.dataHoraAlerta : new Date();
+      const dataDia = formValue.dataDiaAlerta ? formValue.dataDiaAlerta : new Date();
 
       const payload: UpdateNotificationPayload = {
         ...formValue,
-        usuarioId: this.userId,
         equipamentoId: formValue.equipamentoId ? formValue.equipamentoId : 0,
-        dataHoraAlerta: formValue.dataHoraAlerta ? formValue.dataHoraAlerta : new Date(),
-        dataDiaAlerta: formValue.dataDiaAlerta ? formValue.dataDiaAlerta : new Date(),
+        dataHoraAlerta: new Date(dataHora),
+        dataDiaAlerta: new Date(dataDia)
       }
 
-      await this.notificationsService.update(this.notification?.notificacaoId || 0, payload);
+      await this.notificationsService.update(this.notification?.id || 0, payload);
     } catch (error) {
       console.log('Erro ao editar notificação');
+    } finally {
+      this.isLoading = false;
     }
   }
 
@@ -143,11 +156,16 @@ export class ModalNotificationFormComponent implements OnInit {
 
   //#region Private Methods
 
-  private loadEquipments(): void {
-    this.equipmentList = equipmentMockList.filter(eq => eq.status);
+  private async loadEquipments(): Promise<void> {
+    try {
+      this.equipmentList = await this.equipmentsService.loadByUserId(this.userId);
+    } catch (error) {
+      console.log('Erro ao carregar equipamentos');
+    }
   }
 
   private initializeFormGroup(entity: Notification): void {
+    console.log(this.notification)
     this.formGroup.patchValue({
       titulo: entity.titulo,
       descricao: entity.descricao,

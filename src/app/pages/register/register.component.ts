@@ -67,6 +67,8 @@ export class RegisterComponent {
 
   public minDate!: Date;
 
+  public isLoading: boolean = false;
+
   //#endregion
 
   //#region Getters and Setters
@@ -103,6 +105,13 @@ export class RegisterComponent {
   public async register(): Promise<void> {
     if (this.formGroup.valid) {
       try {
+        this.isLoading = true;
+        
+        if (!this.isCpfValid) {
+          alert('CPF inválido!');
+          return;
+        }
+
         const formValue = this.formGroup.getRawValue();
         const payload: RegisterPayload = {
           ...formValue,
@@ -114,6 +123,8 @@ export class RegisterComponent {
         this.navigateToLogin();
       } catch (error) { 
         console.log('Erro ao criar usuários')
+      } finally {
+        this.isLoading = false;
       }
     } else {
       this.formGroup.markAllAsTouched();
@@ -121,7 +132,8 @@ export class RegisterComponent {
   }
 
   public navigateToLogin(): void {
-    this.router.navigate(['login']);
+    console.log('entrei')
+    this.router.navigate(['/login']);
   }
 
   //#endregion

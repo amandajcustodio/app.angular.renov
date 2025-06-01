@@ -1,3 +1,5 @@
+import { Notification } from "./notification.interface";
+
 export interface Equipment {
   equipamentoID: number;
   usuarioID: number;
@@ -7,5 +9,5 @@ export interface Equipment {
   dataCriacao: Date;
   status: boolean;
   temNotificacao: boolean;
-  notificacoesIds?: number[];
+  notificacoes?: Notification[];
 }

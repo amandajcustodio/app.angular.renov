@@ -4,6 +4,9 @@
       <div class="text-lg font-medium">{{ notification.equipamento?.modelo || 'Equipamento' }}</div>
       <div class="text-sm text-color-secondary overflow-hidden text-overflow-ellipsis white-space-nowrap" style="max-width: 23ch;">{{ notification.descricao }}</div>
     </div>
-    <span class="text-color-secondary">{{ notification.dataDiaAlerta | date:'dd/MM/yyyy' }}</span>
+    <div class="flex flex-col gap-2">
+      <i class="pi pi-trash text-lg text-red-300 font-bold cursor-pointer" (click)="delete(notification.id)"></i>
+      <span class="text-color-secondary">{{ notification.dataDiaAlerta | date:'dd/MM/yyyy' }}</span>
+    </div>
   </div>
 </div>
