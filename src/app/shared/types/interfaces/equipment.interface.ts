@@ -5,7 +5,7 @@ export interface Equipment {
   fabricante: string;
   numeroSerie: string;
   dataCriacao: Date;
+  status: boolean;
   temNotificacao: boolean;
   notificacoesIds?: number[];
-  status: boolean;
 }

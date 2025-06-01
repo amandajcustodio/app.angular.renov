@@ -1,3 +1,5 @@
+//#region Imports
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,6 +14,11 @@ import { notificationMockList } from '../../../../shared/types/mocks/notificatio
 import { NotificationCardComponent } from '../../../../shared/components/notification-card/notification-card.component';
 import { equipmentMockList } from '../../../../shared/types/mocks/equipment.mock.component';
 import { NotificationForm } from '../../../../shared/types/interfaces/notification-form.interface';
+import { CreateEquipmentPayload, UpdateEquipmentPayload } from '../../../../shared/types/payloads/equipment.payload';
+import { UsersService } from '../../../../shared/services/users/users.service';
+import { EquipmentsService } from '../../../../shared/services/equipments/equipments.service';
+
+//#endregion
 
 @Component({
   selector: 'app-equipment-create',
@@ -34,7 +41,9 @@ export class CreateEquipmentComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly userService: UsersService,
+    private readonly equipmentService: EquipmentsService
   ) {
     this.formGroup = this.formBuilder.group<EquipmentForm>({
       modelo: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
@@ -65,6 +74,8 @@ export class CreateEquipmentComponent implements OnInit {
 
   public alertId?: number;
 
+  public userId!: number
+
   public equipmentId!: number;
 
   public formGroup!: FormGroup<EquipmentForm>;
@@ -76,6 +87,9 @@ export class CreateEquipmentComponent implements OnInit {
   //#region Public Methods
 
   public ngOnInit(): void {
+    const user = this.userService.getMe();
+    this.userId = user ? user.usuarioID : 0;
+
     if (this.isUpdate && this.equipmentId) {
       this.loadEquipment(this.equipmentId);
     }
@@ -88,16 +102,34 @@ export class CreateEquipmentComponent implements OnInit {
   public async create(): Promise<void> {
     try {
       const formValue = this.formGroup.getRawValue();
+
+      const payload: CreateEquipmentPayload = {
+        ...formValue,
+        status: true,
+        dataCriacao: formValue.dataCriacao ? formValue.dataCriacao : new Date(),
+        usuarioID: this.userId
+      }
+
+      await this.equipmentService.create(payload);
     } catch (error) {
-      
+      console.log('erro criação equipamento')
     }
   }
 
   public async update(): Promise<void> {
     try {
-      const formValue = this.formGroup.getRawValue();
+     const formValue = this.formGroup.getRawValue();
+
+      const payload: UpdateEquipmentPayload = {
+        ...formValue,
+        status: true,
+        dataCriacao: formValue.dataCriacao ? formValue.dataCriacao : new Date(),
+        usuarioID: this.userId
+      }
+
+      await this.equipmentService.update(this.equipmentId, payload);
     } catch (error) {
-      
+      console.log('erro atualização equipamento')
     }
   }
 
@@ -105,13 +137,19 @@ export class CreateEquipmentComponent implements OnInit {
     await this.router.navigate(['main/equipment/list']);
   }
 
-  public loadEquipment(id: number): void {
-    const equipment = equipmentMockList.find(eq => eq.equipamentoID === id);
-    if (equipment) {
-      this.formGroup.patchValue(equipment);
-      this.formGroup.updateValueAndValidity();
+  public async loadEquipment(id: number): Promise<void> {
+    try {
+      const equipments = await this.equipmentService.loadByUserId(this.userId);
+      const equipment = equipments.find(eq => eq.equipamentoID === this.equipmentId);
 
-      if (equipment.notificacoesIds?.length) this.loadNotificationByEquipment(equipment.notificacoesIds);
+      if (equipment) {
+        this.formGroup.patchValue(equipment);
+        this.formGroup.updateValueAndValidity();
+
+        if (equipment.notificacoesIds?.length) this.loadNotificationByEquipment(equipment.notificacoesIds);
+      }
+    } catch (error) {
+      console.log('O equipamento não foi encontrado.')
     }
   }
 
@@ -120,4 +158,5 @@ export class CreateEquipmentComponent implements OnInit {
   }
 
   //#endregion
+
 }

@@ -1,3 +1,5 @@
+//#region Imports
+
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,6 +13,8 @@ import { PasswordModule } from 'primeng/password';
 import { DatePickerModule } from 'primeng/datepicker';
 import { RegisterPayload } from '../../shared/types/payloads/auth.payload';
 import { UsersService } from '../../shared/services/users/users.service';
+
+//#endregion
 
 @Component({
   selector: 'app-register',
@@ -28,6 +32,9 @@ import { UsersService } from '../../shared/services/users/users.service';
   templateUrl: './register.component.html'
 })
 export class RegisterComponent {
+
+  //#region Constructor
+
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
@@ -49,12 +56,20 @@ export class RegisterComponent {
     this.maxDate = maxDate;
     this.minDate = minDate;
   }
+
+  //#endregion
+
+  //#region Public Properties
   
   public formGroup!: FormGroup<RegisterForm>;
 
   public maxDate!: Date;
 
   public minDate!: Date;
+
+  //#endregion
+
+  //#region Getters and Setters
 
   public get isCpfValid(): boolean {
     const cpf = this.formGroup.controls['cpf'].value.replace(/\D/g, '');
@@ -81,6 +96,10 @@ export class RegisterComponent {
     );
   }
 
+  //#endregion
+
+  //#region Public Methods
+
   public async register(): Promise<void> {
     if (this.formGroup.valid) {
       try {
@@ -93,7 +112,9 @@ export class RegisterComponent {
         await this.userService.register(payload);
 
         this.navigateToLogin();
-      } catch (error) { }
+      } catch (error) { 
+        console.log('Erro ao criar usuários')
+      }
     } else {
       this.formGroup.markAllAsTouched();
     }
@@ -102,5 +123,7 @@ export class RegisterComponent {
   public navigateToLogin(): void {
     this.router.navigate(['login']);
   }
+
+  //#endregion
 
 }

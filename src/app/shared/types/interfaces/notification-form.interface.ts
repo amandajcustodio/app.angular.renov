@@ -6,6 +6,6 @@ export interface NotificationForm {
   dataDiaAlerta: FormControl<Date | null>;
   dataHoraAlerta: FormControl<Date | null>;
   status: FormControl<boolean>;
-  constance: FormControl<number | null>;
-  descricao: FormControl<string | null>;
+  constance: FormControl<number | undefined>;
+  descricao: FormControl<string | undefined>;
 }

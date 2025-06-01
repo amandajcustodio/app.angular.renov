@@ -8,7 +8,7 @@
     <h2 class="text-base font-medium"> {{ isUpdate ? 'Editar equipamento' : 'Adicionar equipamento' }}</h2>
   </header>
 
-  <form [formGroup]="formGroup" (ngSubmit)="create()" class="w-full flex flex-column gap-2">
+  <form [formGroup]="formGroup" (ngSubmit)="isUpdate ? update() : create()" class="w-full flex flex-column gap-2">
     <div class="p-3 bg-white border-round-xl shadow-1">
       <h3 class="text-base font-medium text-color mb-3">Informações</h3>
         <div class="flex flex-column gap-2">

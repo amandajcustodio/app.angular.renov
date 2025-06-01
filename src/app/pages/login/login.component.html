@@ -50,6 +50,7 @@
       pButton
       type="submit"
       label="Entrar"
+      [disabled]="formGroup.invalid"
       class="w-full mt-2 bg-indigo-600 border-none text-white border-round-2xl h-3rem"
     ></button>
     <small (click)="navigateToResgister()">Não tem uma conta? <span class="text-blue-500 cursor-pointer">Cadastre-se</span></small>

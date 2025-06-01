@@ -1,5 +1,4 @@
 export interface CreateNotificationPayload {
-  notificacaoId: number; 
   titulo: string; 
   equipamentoId: number; 
   usuarioId: number; 
@@ -11,7 +10,6 @@ export interface CreateNotificationPayload {
 }
 
 export interface UpdateNotificationPayload {
-  notificacaoId?: number; 
   titulo?: string; 
   equipamentoId?: number; 
   usuarioId?: number; 

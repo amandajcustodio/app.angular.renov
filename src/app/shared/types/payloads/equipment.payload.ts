@@ -1,5 +1,4 @@
 export interface CreateEquipmentPayload {
-  equipamentoID: number;
   usuarioID: number;
   modelo: string;
   fabricante: string;
