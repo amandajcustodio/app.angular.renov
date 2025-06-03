@@ -17,6 +17,7 @@ import { NotificationForm } from '../../../../shared/types/interfaces/notificati
 import { CreateEquipmentPayload, UpdateEquipmentPayload } from '../../../../shared/types/payloads/equipment.payload';
 import { UsersService } from '../../../../shared/services/users/users.service';
 import { EquipmentsService } from '../../../../shared/services/equipments/equipments.service';
+import { DatePickerModule } from 'primeng/datepicker';
 
 //#endregion
 
@@ -31,7 +32,8 @@ import { EquipmentsService } from '../../../../shared/services/equipments/equipm
     InputText, 
     ButtonModule,
     ModalNotificationFormComponent,
-    NotificationCardComponent
+    NotificationCardComponent,
+    DatePickerModule
   ],
   templateUrl: './create.component.html',
 })
@@ -72,8 +74,6 @@ export class CreateEquipmentComponent implements OnInit {
 
   public isUpdate: boolean = false;
 
-  public alertId?: number;
-
   public userId!: number
 
   public equipmentId!: number;
@@ -81,6 +81,8 @@ export class CreateEquipmentComponent implements OnInit {
   public formGroup!: FormGroup<EquipmentForm>;
 
   public notifications: Notification[] = [];
+
+  public isLoading: boolean = false;
 
   //#endregion
 
@@ -101,6 +103,8 @@ export class CreateEquipmentComponent implements OnInit {
 
   public async create(): Promise<void> {
     try {
+      this.isLoading = true;
+
       const formValue = this.formGroup.getRawValue();
       const dataCriacao = formValue.dataCriacao ? formValue.dataCriacao : new Date();
 
@@ -110,27 +114,34 @@ export class CreateEquipmentComponent implements OnInit {
         dataCriacao: new Date(dataCriacao),
         usuarioID: this.userId
       }
-
       await this.equipmentService.create(payload);
+      this.navigateToList();
     } catch (error) {
       console.log('erro criação equipamento')
+    } finally {
+      this.isLoading = false;
     }
   }
 
   public async update(): Promise<void> {
     try {
-     const formValue = this.formGroup.getRawValue();
+      this.isLoading = true;
+
+      const formValue = this.formGroup.getRawValue();
 
       const payload: UpdateEquipmentPayload = {
         ...formValue,
         status: true,
-        dataCriacao: formValue.dataCriacao ? formValue.dataCriacao : new Date(),
+        dataCriacao: formValue.dataCriacao ? new Date(formValue.dataCriacao) : new Date(),
         usuarioID: this.userId
       }
 
       await this.equipmentService.update(this.equipmentId, payload);
+      this.navigateToList();
     } catch (error) {
       console.log('erro atualização equipamento')
+    } finally {
+      this.isLoading = false;
     }
   }
 
@@ -144,10 +155,24 @@ export class CreateEquipmentComponent implements OnInit {
       const equipment = equipments.find(eq => eq.equipamentoID === this.equipmentId);
 
       if (equipment) {
-        this.formGroup.patchValue(equipment);
+        
+        const formatDateOnly = (date: Date | string | null): string | null => {
+          if (!date) return null;
+          const d = new Date(date);
+          return d.toISOString().split('T')[0]; // yyyy-MM-dd
+        };
+
+        const formValue = {
+          ...equipment,
+          dataCriacao: equipment.dataCriacao ? new Date(equipment.dataCriacao) : null
+        };
+
+        this.formGroup.patchValue(formValue);
         this.formGroup.updateValueAndValidity();
 
-        if (equipment.notificacoes?.length) this.notifications = equipment.notificacoes;
+        if (equipment.notificacoes?.length) {
+          this.notifications = equipment.notificacoes;
+        }
       }
     } catch (error) {
       console.log('O equipamento não foi encontrado.')

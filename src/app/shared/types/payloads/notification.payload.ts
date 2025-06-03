@@ -5,7 +5,7 @@ export interface CreateNotificationPayload {
   dataHoraAlerta: Date;
   status: boolean;
   descricao?: string;
-  constance?: number;
+  constance: number | null;
 }
 
 export interface UpdateNotificationPayload {
@@ -15,5 +15,5 @@ export interface UpdateNotificationPayload {
   dataHoraAlerta?: Date;
   status?: boolean;
   descricao?: string;
-  constance?: number;
+  constance: number | null;
 }

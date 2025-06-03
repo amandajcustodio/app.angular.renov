@@ -21,9 +21,7 @@
           <input pInputText placeholder="Número de série" 
             formControlName="numeroSerie" class="w-full border-round-2xl h-3rem" 
           />
-          <input type="date" pInputText placeholder="Data de instalação"
-            formControlName="dataCriacao" class="w-full border-round-2xl h-3rem"
-          />
+          <p-datepicker formControlName="dataCriacao" placeholder="Data de instalação" class="w-full !border-round-2xl !h-3rem !px-4" />
       </div>
     </div>
 
@@ -34,7 +32,7 @@
 
     <div class="flex flex-column gap-2 mt-3" *ngIf="formGroup.get('temNotificacao')?.value && isUpdate">
       <div class="text-lg border-dashed border-2 border-indigo-600 text-center text-indigo-600 border-round-2xl p-3">
-        <button (click)="openDialog()" class="w-full text-indigo-600 font-medium bg-transparent border-none">
+        <button type="button" (click)="openDialog()" class="w-full text-indigo-600 font-medium bg-transparent border-none">
           Criar alerta
         </button>
       </div>
@@ -49,10 +47,11 @@
     <button
       pButton
       type="submit"
+      [disabled]="formGroup.invalid || isLoading"
       [label]="isUpdate ? 'Editar equipamento' : 'Adicionar equipamento'"
       class="w-full mt-3 bg-indigo-600 border-none text-white border-round-2xl h-3rem"
     ></button>
   </form>
 </main>
 
-<app-modal-notification-form #modal [alertId]="isUpdate && alertId ? alertId : 0" [showEquipment]="false"></app-modal-notification-form>
+<app-modal-notification-form #modal [equipmentId]="equipmentId" [showEquipment]="false" (reload)="loadEquipment(equipmentId)"></app-modal-notification-form>

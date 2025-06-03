@@ -132,7 +132,6 @@ export class RegisterComponent {
   }
 
   public navigateToLogin(): void {
-    console.log('entrei')
     this.router.navigate(['/login']);
   }
 
