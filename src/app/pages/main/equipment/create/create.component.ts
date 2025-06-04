@@ -52,7 +52,7 @@ export class CreateEquipmentComponent implements OnInit {
       fabricante: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       numeroSerie: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       dataCriacao: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
-      temNotificacao: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
+      temNotificacao: new FormControl(true, { nonNullable: true, validators: [Validators.required] }),
       notificacoes: new FormArray<FormGroup<NotificationForm>>([])
     });
 
@@ -155,12 +155,6 @@ export class CreateEquipmentComponent implements OnInit {
       const equipment = equipments.find(eq => eq.equipamentoID === this.equipmentId);
 
       if (equipment) {
-        
-        const formatDateOnly = (date: Date | string | null): string | null => {
-          if (!date) return null;
-          const d = new Date(date);
-          return d.toISOString().split('T')[0]; // yyyy-MM-dd
-        };
 
         const formValue = {
           ...equipment,

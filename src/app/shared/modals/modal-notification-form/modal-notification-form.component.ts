@@ -1,6 +1,6 @@
 //#region Imports
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Equipment } from '../../types/interfaces/equipment.interface';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NotificationForm } from '../../types/interfaces/notification-form.interface';
@@ -53,7 +53,7 @@ export class ModalNotificationFormComponent implements OnInit {
       dataDiaAlerta: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
       dataHoraAlerta: new FormControl (null, { nonNullable: true, validators: [Validators.required] }),
       status: new FormControl (false, { nonNullable: true, validators: [Validators.required] }),
-      constance: new FormControl (undefined, { nonNullable: true, validators: [Validators.required] }),
+      constance: new FormControl (null, { validators: [Validators.required] }),
       descricao: new FormControl('', { nonNullable: true, validators: [Validators.required] })
     });
   }
@@ -72,7 +72,10 @@ export class ModalNotificationFormComponent implements OnInit {
   public showEquipment: boolean = true;
 
   @Input()
-  public alertId: number = 0;
+  public equipmentId?: number;
+
+  @Output()
+  public reload: EventEmitter<void> = new EventEmitter<void>();
 
   public equipmentList: Equipment[] = [];
 
@@ -91,8 +94,10 @@ export class ModalNotificationFormComponent implements OnInit {
   public ngOnInit(): void {
     this.userId = this.usersService.getMe()?.id || 0;
 
-    if (this.showEquipment)
-      this.loadEquipments();
+    if (this.equipmentId && !this.showEquipment)
+      this.formGroup.controls['equipamentoId'].setValue(this.equipmentId);
+
+    this.loadEquipments();
 
     if (this.isUpdate && this.notification)
       this.initializeFormGroup(this.notification);
@@ -117,11 +122,13 @@ export class ModalNotificationFormComponent implements OnInit {
       const payload: CreateNotificationPayload = {
         ...formValue,
         equipamentoId: formValue.equipamentoId ? formValue.equipamentoId : 0,
-        dataHoraAlerta: new Date(dataHora),
-        dataDiaAlerta: new Date(dataDia)
+        dataHoraAlerta: this.toUTCDate(dataHora),
+        dataDiaAlerta: dataDia
       }
 
       await this.notificationsService.create(payload);
+      window.location.reload();
+      this.close();
     } catch (error) {
       console.log('Erro ao criar notificação');
     } finally {
@@ -140,11 +147,12 @@ export class ModalNotificationFormComponent implements OnInit {
       const payload: UpdateNotificationPayload = {
         ...formValue,
         equipamentoId: formValue.equipamentoId ? formValue.equipamentoId : 0,
-        dataHoraAlerta: new Date(dataHora),
+        dataHoraAlerta: this.toUTCDate(dataHora),
         dataDiaAlerta: new Date(dataDia)
       }
 
       await this.notificationsService.update(this.notification?.id || 0, payload);
+      window.location.reload();
     } catch (error) {
       console.log('Erro ao editar notificação');
     } finally {
@@ -165,19 +173,31 @@ export class ModalNotificationFormComponent implements OnInit {
   }
 
   private initializeFormGroup(entity: Notification): void {
-    console.log(this.notification)
-    this.formGroup.patchValue({
-      titulo: entity.titulo,
-      descricao: entity.descricao,
-      status: entity.status,
-      equipamentoId: entity.equipamentoId,
-      dataHoraAlerta: entity.dataHoraAlerta,
-      dataDiaAlerta: entity.dataDiaAlerta,
-      constance: entity.constance
+    if (!this.formGroup) return;
+
+    this.formGroup.setValue({
+      titulo: entity.titulo ?? '',
+      descricao: entity.descricao ?? '',
+      status: entity.status ?? false,
+      equipamentoId: entity.equipamentoId ?? 0,
+      dataHoraAlerta: entity.dataHoraAlerta ? new Date(entity.dataHoraAlerta) : null,
+      dataDiaAlerta: entity.dataDiaAlerta ? new Date(entity.dataDiaAlerta) : null,
+      constance: null
     });
 
     this.formGroup.updateValueAndValidity();
   }
+
+  private toUTCDate(date: Date): Date {
+  return new Date(Date.UTC(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    date.getHours(),
+    date.getMinutes(),
+    date.getSeconds()
+  ));
+}
 
   //#endregion
 

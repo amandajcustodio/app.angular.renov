@@ -38,7 +38,7 @@ export class NotificationCardComponent {
   public async delete(id: number): Promise<void> {
     try {
       await this.notificationsService.delete(id);
-      this.reload.emit();
+      window.location.reload();
     } catch (error) {
       console.log('Erro ao excluir.')
     }

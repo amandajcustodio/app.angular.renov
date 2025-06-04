@@ -4,6 +4,8 @@ import { MenuComponent } from './shared/components/menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { filter, Subscription } from 'rxjs';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { WebSocketNotificationComponent } from './shared/components/websocket-notification/websocket-notification.component';
+import { WebSocketService } from './shared/services/websocket/websocket.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,8 @@ import { HeaderComponent } from './shared/components/header/header.component';
     CommonModule,
     RouterOutlet,
     MenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    WebSocketNotificationComponent
   ],
   template: `
     <app-header *ngIf="showHeader"></app-header>
@@ -21,11 +24,16 @@ import { HeaderComponent } from './shared/components/header/header.component';
       <router-outlet></router-outlet>
     </div>
     
+    <app-websocket-notification></app-websocket-notification>
     <app-menu *ngIf="showMenu"></app-menu>
   `,
 })
 export class AppComponent {
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private readonly webSocketService: WebSocketService
+
+  ) {
     this.updateVisibility();
     this.routerSubscription = router.events
       .pipe(filter(event => event instanceof NavigationEnd))
